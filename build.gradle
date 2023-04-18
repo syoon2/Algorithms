@@ -37,7 +37,7 @@ dependencies {
   testImplementation('org.junit.jupiter:junit-jupiter-api:5.4.2')
    
   // Google Guava lib
-  testImplementation group: 'com.google.guava', name: 'guava', version: '22.0'
+  testImplementation group: 'com.google.guava', name: 'guava', version: '23.0'
 
   // Google Truth test framework
   // https://mvnrepository.com/artifact/com.google.truth/truth
