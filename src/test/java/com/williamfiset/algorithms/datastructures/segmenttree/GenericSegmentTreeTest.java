@@ -4,17 +4,18 @@
  */
 package com.williamfiset.algorithms.datastructures.segmenttree;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.williamfiset.algorithms.utils.TestUtils;
-import org.junit.Test;
+
+import org.junit.jupiter.api.*;
 
 public class GenericSegmentTreeTest {
 
   static int ITERATIONS = 250;
   static int MAX_N = 17;
 
-  // @Before
+  // @BeforeEach
   // public void setup() {}
 
   // @Test
@@ -26,9 +27,9 @@ public class GenericSegmentTreeTest {
   //           GenericSegmentTree.SegmentCombinationFn.SUM,
   //           GenericSegmentTree.RangeUpdateFn.ADDITION);
 
-  //   assertThat(st.rangeQuery1(0, 1)).isEqualTo(3);
-  //   assertThat(st.rangeQuery1(2, 2)).isEqualTo(3);
-  //   assertThat(st.rangeQuery1(0, 4)).isEqualTo(15);
+  //   assertEquals(3, st.rangeQuery1(0, 1));
+  //   assertEquals(3, st.rangeQuery1(2, 2));
+  //   assertEquals(15, st.rangeQuery1(0, 4));
   // }
 
   // @Test
@@ -47,17 +48,17 @@ public class GenericSegmentTreeTest {
   //   st.rangeUpdate1(0, 4, 3);
 
   //   // Point queries
-  //   assertThat(st.rangeQuery1(0, 0)).isEqualTo(1 + 3 + 5);
-  //   assertThat(st.rangeQuery1(1, 1)).isEqualTo(2 + 3 + 5);
-  //   assertThat(st.rangeQuery1(2, 2)).isEqualTo(1 + 3);
-  //   assertThat(st.rangeQuery1(3, 3)).isEqualTo(2 + 3 + 2);
-  //   assertThat(st.rangeQuery1(4, 4)).isEqualTo(2 + 3 + 1);
+  //   assertEquals(1 + 3 + 5, st.rangeQuery1(0, 0));
+  //   assertEquals(2 + 3 + 5, st.rangeQuery1(1, 1));
+  //   assertEquals(1 + 3, st.rangeQuery1(2, 2));
+  //   assertEquals(2 + 3 + 2, st.rangeQuery1(3, 3));
+  //   assertEquals(2 + 3 + 1, st.rangeQuery1(4, 4));
 
   //   // Range queries
-  //   assertThat(st.rangeQuery1(0, 1)).isEqualTo(2 * 5 + 2 * 3 + 1 + 2);
-  //   assertThat(st.rangeQuery1(0, 2)).isEqualTo(2 * 5 + 3 * 3 + 1 + 2 + 1);
-  //   assertThat(st.rangeQuery1(3, 4)).isEqualTo(2 * 2 + 2 * 3 + 2 + 1);
-  //   assertThat(st.rangeQuery1(0, 4)).isEqualTo(2 * 5 + 2 * 2 + 3 * 5 + 1 + 1 + 1 + 2 + 2);
+  //   assertEquals(2 * 5 + 2 * 3 + 1 + 2, st.rangeQuery1(0, 1));
+  //   assertEquals(2 * 5 + 3 * 3 + 1 + 2 + 1, st.rangeQuery1(0, 2));
+  //   assertEquals(2 * 2 + 2 * 3 + 2 + 1, st.rangeQuery1(3, 4));
+  //   assertEquals(2 * 5 + 2 * 2 + 3 * 5 + 1 + 1 + 1 + 2 + 2, st.rangeQuery1(0, 4));
   // }
 
   // @Test
@@ -71,30 +72,30 @@ public class GenericSegmentTreeTest {
 
   //   st.rangeUpdate1(3, 4, 2);
 
-  //   assertThat(st.rangeQuery1(0, 4)).isEqualTo(10);
-  //   assertThat(st.rangeQuery1(3, 4)).isEqualTo(4);
-  //   assertThat(st.rangeQuery1(3, 3)).isEqualTo(2);
-  //   assertThat(st.rangeQuery1(4, 4)).isEqualTo(2);
+  //   assertEquals(10, st.rangeQuery1(0, 4));
+  //   assertEquals(4, st.rangeQuery1(3, 4));
+  //   assertEquals(2, st.rangeQuery1(3, 3));
+  //   assertEquals(2, st.rangeQuery1(4, 4));
 
   //   st.rangeUpdate1(1, 3, 4);
 
-  //   assertThat(st.rangeQuery1(0, 4)).isEqualTo(16);
-  //   assertThat(st.rangeQuery1(0, 1)).isEqualTo(6);
-  //   assertThat(st.rangeQuery1(3, 4)).isEqualTo(6);
-  //   assertThat(st.rangeQuery1(1, 1)).isEqualTo(4);
-  //   assertThat(st.rangeQuery1(2, 2)).isEqualTo(4);
-  //   assertThat(st.rangeQuery1(3, 3)).isEqualTo(4);
-  //   assertThat(st.rangeQuery1(1, 3)).isEqualTo(12);
-  //   assertThat(st.rangeQuery1(2, 3)).isEqualTo(8);
-  //   assertThat(st.rangeQuery1(1, 2)).isEqualTo(8);
+  //   assertEquals(16, st.rangeQuery1(0, 4));
+  //   assertEquals(6, st.rangeQuery1(0, 1));
+  //   assertEquals(6, st.rangeQuery1(3, 4));
+  //   assertEquals(4, st.rangeQuery1(1, 1));
+  //   assertEquals(4, st.rangeQuery1(2, 2));
+  //   assertEquals(4, st.rangeQuery1(3, 3));
+  //   assertEquals(12, st.rangeQuery1(1, 3));
+  //   assertEquals(8, st.rangeQuery1(2, 3));
+  //   assertEquals(8, st.rangeQuery1(1, 2));
 
   //   st.rangeUpdate1(2, 2, 5);
 
-  //   assertThat(st.rangeQuery1(0, 4)).isEqualTo(17);
-  //   assertThat(st.rangeQuery1(0, 2)).isEqualTo(11);
-  //   assertThat(st.rangeQuery1(2, 4)).isEqualTo(11);
-  //   assertThat(st.rangeQuery1(1, 3)).isEqualTo(13);
-  //   assertThat(st.rangeQuery1(2, 2)).isEqualTo(5);
+  //   assertEquals(17, st.rangeQuery1(0, 4));
+  //   assertEquals(11, st.rangeQuery1(0, 2));
+  //   assertEquals(11, st.rangeQuery1(2, 4));
+  //   assertEquals(13, st.rangeQuery1(1, 3));
+  //   assertEquals(5, st.rangeQuery1(2, 2));
   // }
 
   // @Test
@@ -108,13 +109,13 @@ public class GenericSegmentTreeTest {
 
   //   st.rangeUpdate1(1, 3, 3);
 
-  //   assertThat(st.rangeQuery1(1, 3)).isEqualTo(4 * 3 + 5 * 3 + 3 * 3);
-  //   assertThat(st.rangeQuery1(0, 4)).isEqualTo(1 + 4 * 3 + 5 * 3 + 3 * 3 + 2);
-  //   assertThat(st.rangeQuery1(0, 2)).isEqualTo(1 + 4 * 3 + 5 * 3);
-  //   assertThat(st.rangeQuery1(2, 4)).isEqualTo(5 * 3 + 3 * 3 + 2);
+  //   assertEquals(4 * 3 + 5 * 3 + 3 * 3, st.rangeQuery1(1, 3));
+  //   assertEquals(1 + 4 * 3 + 5 * 3 + 3 * 3 + 2, st.rangeQuery1(0, 4));
+  //   assertEquals(1 + 4 * 3 + 5 * 3, st.rangeQuery1(0, 2));
+  //   assertEquals(5 * 3 + 3 * 3 + 2, st.rangeQuery1(2, 4));
 
   //   st.rangeUpdate1(1, 3, 2);
-  //   assertThat(st.rangeQuery1(1, 3)).isEqualTo(4 * 3 * 2 + 5 * 3 * 2 + 3 * 3 * 2);
+  //   assertEquals(4 * 3 * 2 + 5 * 3 * 2 + 3 * 3 * 2, st.rangeQuery1(1, 3));
   // }
 
   // @Test
@@ -128,34 +129,34 @@ public class GenericSegmentTreeTest {
 
   //   st.rangeUpdate1(0, 4, 1);
 
-  //   assertThat(st.rangeQuery1(0, 4)).isEqualTo(0);
-  //   assertThat(st.rangeQuery1(1, 3)).isEqualTo(2);
-  //   assertThat(st.rangeQuery1(2, 4)).isEqualTo(0);
-  //   assertThat(st.rangeQuery1(3, 3)).isEqualTo(5);
+  //   assertEquals(0, st.rangeQuery1(0, 4));
+  //   assertEquals(2, st.rangeQuery1(1, 3));
+  //   assertEquals(0, st.rangeQuery1(2, 4));
+  //   assertEquals(5, st.rangeQuery1(3, 3));
 
   //   st.rangeUpdate1(3, 4, 4);
 
-  //   assertThat(st.rangeQuery1(0, 4)).isEqualTo(2);
-  //   assertThat(st.rangeQuery1(0, 1)).isEqualTo(2);
-  //   assertThat(st.rangeQuery1(3, 4)).isEqualTo(4);
-  //   assertThat(st.rangeQuery1(1, 1)).isEqualTo(2);
-  //   assertThat(st.rangeQuery1(2, 2)).isEqualTo(4);
-  //   assertThat(st.rangeQuery1(3, 3)).isEqualTo(9);
-  //   assertThat(st.rangeQuery1(1, 3)).isEqualTo(2);
-  //   assertThat(st.rangeQuery1(2, 3)).isEqualTo(4);
-  //   assertThat(st.rangeQuery1(1, 2)).isEqualTo(2);
+  //   assertEquals(2, st.rangeQuery1(0, 4));
+  //   assertEquals(2, st.rangeQuery1(0, 1));
+  //   assertEquals(4, st.rangeQuery1(3, 4));
+  //   assertEquals(2, st.rangeQuery1(1, 1));
+  //   assertEquals(4, st.rangeQuery1(2, 2));
+  //   assertEquals(9, st.rangeQuery1(3, 3));
+  //   assertEquals(2, st.rangeQuery1(1, 3));
+  //   assertEquals(4, st.rangeQuery1(2, 3));
+  //   assertEquals(2, st.rangeQuery1(1, 2));
 
   //   st.rangeUpdate1(1, 3, 3);
 
-  //   assertThat(st.rangeQuery1(0, 4)).isEqualTo(3);
-  //   assertThat(st.rangeQuery1(0, 2)).isEqualTo(3);
-  //   assertThat(st.rangeQuery1(2, 4)).isEqualTo(4);
-  //   assertThat(st.rangeQuery1(1, 3)).isEqualTo(5);
-  //   assertThat(st.rangeQuery1(0, 0)).isEqualTo(3);
-  //   assertThat(st.rangeQuery1(1, 1)).isEqualTo(5);
-  //   assertThat(st.rangeQuery1(2, 2)).isEqualTo(7);
-  //   assertThat(st.rangeQuery1(3, 3)).isEqualTo(12);
-  //   assertThat(st.rangeQuery1(4, 4)).isEqualTo(4);
+  //   assertEquals(3, st.rangeQuery1(0, 4));
+  //   assertEquals(3, st.rangeQuery1(0, 2));
+  //   assertEquals(4, st.rangeQuery1(2, 4));
+  //   assertEquals(5, st.rangeQuery1(1, 3));
+  //   assertEquals(3, st.rangeQuery1(0, 0));
+  //   assertEquals(5, st.rangeQuery1(1, 1));
+  //   assertEquals(7, st.rangeQuery1(2, 2));
+  //   assertEquals(12, st.rangeQuery1(3, 3));
+  //   assertEquals(4, st.rangeQuery1(4, 4));
   // }
 
   // @Test
@@ -171,34 +172,34 @@ public class GenericSegmentTreeTest {
   //   st.rangeUpdate1(0, 4, 1);
   //   st.printDebugInfo();
 
-  //   assertThat(st.rangeQuery1(0, 4)).isEqualTo(5);
-  //   assertThat(st.rangeQuery1(0, 1)).isEqualTo(3);
-  //   assertThat(st.rangeQuery1(1, 2)).isEqualTo(4);
-  //   assertThat(st.rangeQuery1(1, 3)).isEqualTo(5);
+  //   assertEquals(5, st.rangeQuery1(0, 4));
+  //   assertEquals(3, st.rangeQuery1(0, 1));
+  //   assertEquals(4, st.rangeQuery1(1, 2));
+  //   assertEquals(5, st.rangeQuery1(1, 3));
 
   //   st.rangeUpdate1(3, 4, 4);
 
-  //   assertThat(st.rangeQuery1(0, 4)).isEqualTo(9);
-  //   assertThat(st.rangeQuery1(0, 1)).isEqualTo(3);
-  //   assertThat(st.rangeQuery1(3, 4)).isEqualTo(9);
-  //   assertThat(st.rangeQuery1(1, 1)).isEqualTo(2);
-  //   assertThat(st.rangeQuery1(2, 2)).isEqualTo(4);
-  //   assertThat(st.rangeQuery1(3, 3)).isEqualTo(9);
-  //   assertThat(st.rangeQuery1(1, 3)).isEqualTo(9);
-  //   assertThat(st.rangeQuery1(2, 3)).isEqualTo(9);
-  //   assertThat(st.rangeQuery1(1, 2)).isEqualTo(4);
+  //   assertEquals(9, st.rangeQuery1(0, 4));
+  //   assertEquals(3, st.rangeQuery1(0, 1));
+  //   assertEquals(9, st.rangeQuery1(3, 4));
+  //   assertEquals(2, st.rangeQuery1(1, 1));
+  //   assertEquals(4, st.rangeQuery1(2, 2));
+  //   assertEquals(9, st.rangeQuery1(3, 3));
+  //   assertEquals(9, st.rangeQuery1(1, 3));
+  //   assertEquals(9, st.rangeQuery1(2, 3));
+  //   assertEquals(4, st.rangeQuery1(1, 2));
 
   //   st.rangeUpdate1(1, 3, 3);
 
-  //   assertThat(st.rangeQuery1(0, 4)).isEqualTo(12);
-  //   assertThat(st.rangeQuery1(0, 2)).isEqualTo(7);
-  //   assertThat(st.rangeQuery1(2, 4)).isEqualTo(12);
-  //   assertThat(st.rangeQuery1(1, 3)).isEqualTo(12);
-  //   assertThat(st.rangeQuery1(0, 0)).isEqualTo(3);
-  //   assertThat(st.rangeQuery1(1, 1)).isEqualTo(5);
-  //   assertThat(st.rangeQuery1(2, 2)).isEqualTo(7);
-  //   assertThat(st.rangeQuery1(3, 3)).isEqualTo(12);
-  //   assertThat(st.rangeQuery1(4, 4)).isEqualTo(4);
+  //   assertEquals(12, st.rangeQuery1(0, 4));
+  //   assertEquals(7, st.rangeQuery1(0, 2));
+  //   assertEquals(12, st.rangeQuery1(2, 4));
+  //   assertEquals(12, st.rangeQuery1(1, 3));
+  //   assertEquals(3, st.rangeQuery1(0, 0));
+  //   assertEquals(5, st.rangeQuery1(1, 1));
+  //   assertEquals(7, st.rangeQuery1(2, 2));
+  //   assertEquals(12, st.rangeQuery1(3, 3));
+  //   assertEquals(4, st.rangeQuery1(4, 4));
   // }
 
   // @Test
@@ -211,11 +212,11 @@ public class GenericSegmentTreeTest {
   //           GenericSegmentTree.RangeUpdateFn.MULTIPLICATION);
 
   //   st.rangeUpdate1(0, 4, 1);
-  //   assertThat(st.rangeQuery1(0, 4)).isEqualTo(4);
+  //   assertEquals(4, st.rangeQuery1(0, 4));
 
   //   // TODO(issue/208): Negative numbers are a known issue
   //   // st.rangeUpdate1(0, 4, -2);
-  //   // assertThat(st.rangeQuery1(0, 4)).isEqualTo(2); // Returns -8 as max but should be 2
+  //   // assertEquals(2, st.rangeQuery1(0, 4)); // Returns -8 as max but should be 2
   // }
 
   @Test
@@ -314,7 +315,7 @@ public class GenericSegmentTreeTest {
 
               System.out.println(java.util.Arrays.toString(ar));
             }
-            assertThat(segTreeAnswer).isEqualTo(bf);
+            assertEquals(bf, segTreeAnswer);
           }
         }
       }

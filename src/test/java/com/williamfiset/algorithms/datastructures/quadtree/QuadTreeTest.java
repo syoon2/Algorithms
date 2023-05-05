@@ -1,9 +1,8 @@
 package com.williamfiset.algorithms.datastructures.quadtree;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.*;
 
 public class QuadTreeTest {
 
@@ -11,7 +10,7 @@ public class QuadTreeTest {
   static final int TEST_SZ = 1000;
   static final int MAX_RAND_NUM = +2000;
 
-  @Before
+  @BeforeEach
   public void setup() {}
 
   @Test
@@ -29,34 +28,34 @@ public class QuadTreeTest {
     QuadTree.Rect r1Left = new QuadTree.Rect(-5, -4, -1, 8);
     QuadTree.Rect r1Right = new QuadTree.Rect(6, -3, 7, 8);
 
-    assertThat(r1.intersects(r1)).isTrue();
+    assertTrue(r1.intersects(r1));
 
-    assertThat(r1.intersects(r1Center)).isTrue();
-    assertThat(r1Center.intersects(r1)).isTrue();
+    assertTrue(r1.intersects(r1Center));
+    assertTrue(r1Center.intersects(r1));
 
-    assertThat(r1.intersects(r1NWCorner)).isTrue();
-    assertThat(r1NWCorner.intersects(r1)).isTrue();
+    assertTrue(r1.intersects(r1NWCorner));
+    assertTrue(r1NWCorner.intersects(r1));
 
-    assertThat(r1.intersects(r1NECorner)).isTrue();
-    assertThat(r1NECorner.intersects(r1)).isTrue();
+    assertTrue(r1.intersects(r1NECorner));
+    assertTrue(r1NECorner.intersects(r1));
 
-    assertThat(r1.intersects(r1SECorner)).isTrue();
-    assertThat(r1SECorner.intersects(r1)).isTrue();
+    assertTrue(r1.intersects(r1SECorner));
+    assertTrue(r1SECorner.intersects(r1));
 
-    assertThat(r1.intersects(r1SWCorner)).isTrue();
-    assertThat(r1SWCorner.intersects(r1)).isTrue();
+    assertTrue(r1.intersects(r1SWCorner));
+    assertTrue(r1SWCorner.intersects(r1));
 
-    assertThat(r1.intersects(r1Above)).isFalse();
-    assertThat(r1Above.intersects(r1)).isFalse();
+    assertFalse(r1.intersects(r1Above));
+    assertFalse(r1Above.intersects(r1));
 
-    assertThat(r1.intersects(r1Below)).isFalse();
-    assertThat(r1Below.intersects(r1)).isFalse();
+    assertFalse(r1.intersects(r1Below));
+    assertFalse(r1Below.intersects(r1));
 
-    assertThat(r1.intersects(r1Left)).isFalse();
-    assertThat(r1Left.intersects(r1)).isFalse();
+    assertFalse(r1.intersects(r1Left));
+    assertFalse(r1Left.intersects(r1));
 
-    assertThat(r1.intersects(r1Right)).isFalse();
-    assertThat(r1Right.intersects(r1)).isFalse();
+    assertFalse(r1.intersects(r1Right));
+    assertFalse(r1Right.intersects(r1));
   }
 
   @Test
@@ -74,34 +73,34 @@ public class QuadTreeTest {
     QuadTree.Rect r1Left = new QuadTree.Rect(-5, -4, -1, 8);
     QuadTree.Rect r1Right = new QuadTree.Rect(6, -3, 7, 8);
 
-    assertThat(r1.contains(r1)).isTrue();
+    assertTrue(r1.contains(r1));
 
-    assertThat(r1.contains(r1Center)).isTrue();
-    assertThat(r1Center.contains(r1)).isFalse();
+    assertTrue(r1.contains(r1Center));
+    assertFalse(r1Center.contains(r1));
 
-    assertThat(r1.contains(r1NWCorner)).isFalse();
-    assertThat(r1NWCorner.contains(r1)).isFalse();
+    assertFalse(r1.contains(r1NWCorner));
+    assertFalse(r1NWCorner.contains(r1));
 
-    assertThat(r1.contains(r1NECorner)).isFalse();
-    assertThat(r1NECorner.contains(r1)).isFalse();
+    assertFalse(r1.contains(r1NECorner));
+    assertFalse(r1NECorner.contains(r1));
 
-    assertThat(r1.contains(r1SECorner)).isFalse();
-    assertThat(r1SECorner.contains(r1)).isFalse();
+    assertFalse(r1.contains(r1SECorner));
+    assertFalse(r1SECorner.contains(r1));
 
-    assertThat(r1.contains(r1SWCorner)).isFalse();
-    assertThat(r1SWCorner.contains(r1)).isFalse();
+    assertFalse(r1.contains(r1SWCorner));
+    assertFalse(r1SWCorner.contains(r1));
 
-    assertThat(r1.contains(r1Above)).isFalse();
-    assertThat(r1Above.contains(r1)).isFalse();
+    assertFalse(r1.contains(r1Above));
+    assertFalse(r1Above.contains(r1));
 
-    assertThat(r1.contains(r1Below)).isFalse();
-    assertThat(r1Below.contains(r1)).isFalse();
+    assertFalse(r1.contains(r1Below));
+    assertFalse(r1Below.contains(r1));
 
-    assertThat(r1.contains(r1Left)).isFalse();
-    assertThat(r1Left.contains(r1)).isFalse();
+    assertFalse(r1.contains(r1Left));
+    assertFalse(r1Left.contains(r1));
 
-    assertThat(r1.contains(r1Right)).isFalse();
-    assertThat(r1Right.contains(r1)).isFalse();
+    assertFalse(r1.contains(r1Right));
+    assertFalse(r1Right.contains(r1));
   }
 
   @Test
@@ -110,48 +109,48 @@ public class QuadTreeTest {
     QuadTree.Rect r1 = new QuadTree.Rect(0, 0, 5, 5);
 
     // Corner check
-    assertThat(r1.contains(0, 0)).isTrue();
-    assertThat(r1.contains(0, 5)).isTrue();
-    assertThat(r1.contains(5, 0)).isTrue();
-    assertThat(r1.contains(5, 5)).isTrue();
+    assertTrue(r1.contains(0, 0));
+    assertTrue(r1.contains(0, 5));
+    assertTrue(r1.contains(5, 0));
+    assertTrue(r1.contains(5, 5));
 
     // Side check
-    assertThat(r1.contains(0, 1)).isTrue();
-    assertThat(r1.contains(0, 2)).isTrue();
-    assertThat(r1.contains(0, 3)).isTrue();
-    assertThat(r1.contains(0, 4)).isTrue();
+    assertTrue(r1.contains(0, 1));
+    assertTrue(r1.contains(0, 2));
+    assertTrue(r1.contains(0, 3));
+    assertTrue(r1.contains(0, 4));
 
     // Side check
-    assertThat(r1.contains(1, 0)).isTrue();
-    assertThat(r1.contains(2, 0)).isTrue();
-    assertThat(r1.contains(3, 0)).isTrue();
-    assertThat(r1.contains(4, 0)).isTrue();
+    assertTrue(r1.contains(1, 0));
+    assertTrue(r1.contains(2, 0));
+    assertTrue(r1.contains(3, 0));
+    assertTrue(r1.contains(4, 0));
 
     // Side check
-    assertThat(r1.contains(1, 5)).isTrue();
-    assertThat(r1.contains(2, 5)).isTrue();
-    assertThat(r1.contains(3, 5)).isTrue();
-    assertThat(r1.contains(4, 5)).isTrue();
+    assertTrue(r1.contains(1, 5));
+    assertTrue(r1.contains(2, 5));
+    assertTrue(r1.contains(3, 5));
+    assertTrue(r1.contains(4, 5));
 
     // Side check
-    assertThat(r1.contains(5, 1)).isTrue();
-    assertThat(r1.contains(5, 2)).isTrue();
-    assertThat(r1.contains(5, 3)).isTrue();
-    assertThat(r1.contains(5, 4)).isTrue();
+    assertTrue(r1.contains(5, 1));
+    assertTrue(r1.contains(5, 2));
+    assertTrue(r1.contains(5, 3));
+    assertTrue(r1.contains(5, 4));
 
     // Inside check
-    assertThat(r1.contains(2, 3)).isTrue();
-    assertThat(r1.contains(1, 1)).isTrue();
-    assertThat(r1.contains(4, 3)).isTrue();
-    assertThat(r1.contains(3, 1)).isTrue();
+    assertTrue(r1.contains(2, 3));
+    assertTrue(r1.contains(1, 1));
+    assertTrue(r1.contains(4, 3));
+    assertTrue(r1.contains(3, 1));
 
     // Outside check
-    assertThat(r1.contains(-1, 3)).isFalse();
-    assertThat(r1.contains(-2, -2)).isFalse();
-    assertThat(r1.contains(6, 3)).isFalse();
-    assertThat(r1.contains(3, 6)).isFalse();
-    assertThat(r1.contains(3, -6)).isFalse();
-    assertThat(r1.contains(-3, 6)).isFalse();
+    assertFalse(r1.contains(-1, 3));
+    assertFalse(r1.contains(-2, -2));
+    assertFalse(r1.contains(6, 3));
+    assertFalse(r1.contains(3, 6));
+    assertFalse(r1.contains(3, -6));
+    assertFalse(r1.contains(-3, 6));
   }
 
   @Test
@@ -165,7 +164,7 @@ public class QuadTreeTest {
     for (int i = 0; i <= SZ; i++) quadTree.add(i, i);
 
     // Query entire region there should be 101 points
-    assertThat(quadTree.count(region)).isEqualTo(101);
+    assertEquals(101, quadTree.count(region));
   }
 
   public int bruteForceCount(int[][] grid, int x1, int y1, int x2, int y2) {
@@ -188,7 +187,7 @@ public class QuadTreeTest {
       for (int i = 0; i < TEST_SZ; i++) {
         int x = (int) (Math.random() * (W + 1));
         int y = (int) (Math.random() * (H + 1));
-        assertThat(quadTree.add(x, y)).isTrue();
+        assertTrue(quadTree.add(x, y));
         grid[y][x]++;
         // System.out.printf("(%d, %d)\n",x,y);
       }
@@ -211,7 +210,7 @@ public class QuadTreeTest {
           int expectedPts = bruteForceCount(grid, x1, y1, x2, y2);
           int quadTreeCount = quadTree.count(region);
           // System.out.printf("EXPECTED: %d, GOT: %d\n", expectedPts, quadTreeCount);
-          assertThat(quadTreeCount).isEqualTo(expectedPts);
+          assertEquals(expectedPts, quadTreeCount);
 
           // Increment because we have a valid region
           i++;

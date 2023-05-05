@@ -1,10 +1,11 @@
 package com.williamfiset.algorithms.datastructures.suffixarray;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.security.SecureRandom;
 import java.util.Random;
-import org.junit.*;
+
+import org.junit.jupiter.api.*;
 
 public class SuffixArrayTest {
 
@@ -18,7 +19,7 @@ public class SuffixArrayTest {
 
   String ASCII_LETTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-  @Before
+  @BeforeEach
   public void setup() {}
 
   @Test
@@ -29,9 +30,9 @@ public class SuffixArrayTest {
     SuffixArray sa2 = new SuffixArrayMed(str);
     SuffixArray sa3 = new SuffixArrayFast(str);
 
-    assertThat(sa1.getSa().length).isEqualTo(str.length());
-    assertThat(sa2.getSa().length).isEqualTo(str.length());
-    assertThat(sa3.getSa().length).isEqualTo(str.length());
+    assertEquals(str.length(), sa1.getSa().length);
+    assertEquals(str.length(), sa2.getSa().length);
+    assertEquals(str.length(), sa3.getSa().length);
   }
 
   @Test
@@ -45,7 +46,7 @@ public class SuffixArrayTest {
 
     for (SuffixArray sa : suffixArrays) {
       for (int i = 0; i < sa.getSa().length; i++) {
-        assertThat(sa.getLcpArray()[i]).isEqualTo(0);
+        assertEquals(0, sa.getLcpArray()[i]);
       }
     }
   }
@@ -63,7 +64,7 @@ public class SuffixArrayTest {
 
     for (SuffixArray sa : suffixArrays) {
       for (int i = 0; i < sa.getSa().length; i++) {
-        assertThat(sa.getLcpArray()[i]).isEqualTo(i);
+        assertEquals(i, sa.getLcpArray()[i]);
       }
     }
   }
@@ -82,7 +83,7 @@ public class SuffixArrayTest {
 
     for (SuffixArray sa : suffixArrays) {
       for (int i = 0; i < sa.getSa().length; i++) {
-        assertThat(lcpValues[i]).isEqualTo(sa.getLcpArray()[i]);
+        assertEquals(lcpValues[i], sa.getLcpArray()[i]);
       }
     }
   }
@@ -100,7 +101,7 @@ public class SuffixArrayTest {
 
     for (SuffixArray sa : suffixArrays) {
       for (int i = 0; i < sa.getSa().length; i++) {
-        assertThat(lcpValues[i]).isEqualTo(sa.getLcpArray()[i]);
+        assertEquals(lcpValues[i], sa.getLcpArray()[i]);
       }
     }
   }
@@ -121,7 +122,7 @@ public class SuffixArrayTest {
         SuffixArray s1 = suffixArrays[i];
         SuffixArray s2 = suffixArrays[j];
         for (int k = 0; k < s1.getSa().length; k++) {
-          assertThat(s1.getSa()[k]).isEqualTo(s2.getSa()[k]);
+          assertEquals(s1.getSa()[k], s2.getSa()[k]);
         }
       }
     }

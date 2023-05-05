@@ -1,10 +1,11 @@
 package com.williamfiset.algorithms.datastructures.balancedtree;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.*;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.*;
 
 public class RedBlackTreeTest {
 
@@ -15,19 +16,19 @@ public class RedBlackTreeTest {
 
   private RedBlackTree<Integer> tree;
 
-  @Before
+  @BeforeEach
   public void setup() {
     tree = new RedBlackTree<>();
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testNullInsertion() {
-    tree.insert(null);
+    assertThrows(IllegalArgumentException.class, () -> tree.insert(null));
   }
 
   @Test
   public void testTreeContainsNull() {
-    assertThat(tree.contains(null)).isFalse();
+    assertFalse(tree.contains(null));
   }
 
   @Test
@@ -37,16 +38,16 @@ public class RedBlackTreeTest {
     tree.insert(2);
     tree.insert(1);
 
-    assertThat(tree.root.value.intValue()).isEqualTo(2);
-    assertThat(tree.root.left.value.intValue()).isEqualTo(1);
-    assertThat(tree.root.right.value.intValue()).isEqualTo(3);
+    assertEquals(2, tree.root.value);
+    assertEquals(1, tree.root.left.value);
+    assertEquals(3, tree.root.right.value);
 
-    assertThat(tree.root.color).isEqualTo(RedBlackTree.BLACK);
-    assertThat(tree.root.left.color).isEqualTo(RedBlackTree.RED);
-    assertThat(tree.root.right.color).isEqualTo(RedBlackTree.RED);
+    assertEquals(RedBlackTree.BLACK, tree.root.color);
+    assertEquals(RedBlackTree.RED, tree.root.left.color);
+    assertEquals(RedBlackTree.RED, tree.root.right.color);
 
-    assertThat(tree.root).isEqualTo(tree.root.left.parent);
-    assertThat(tree.root).isEqualTo(tree.root.right.parent);
+    assertSame(tree.root, tree.root.left.parent);
+    assertSame(tree.root, tree.root.right.parent);
 
     assertNullChildren(tree, tree.root.left, tree.root.right);
     assertCorrectParentLinks(tree, tree.root, tree.NIL);
@@ -59,16 +60,16 @@ public class RedBlackTreeTest {
     tree.insert(1);
     tree.insert(2);
 
-    assertThat(tree.root.value.intValue()).isEqualTo(2);
-    assertThat(tree.root.left.value.intValue()).isEqualTo(1);
-    assertThat(tree.root.right.value.intValue()).isEqualTo(3);
+    assertEquals(2, tree.root.value);
+    assertEquals(1, tree.root.left.value);
+    assertEquals(3, tree.root.right.value);
 
-    assertThat(tree.root.color).isEqualTo(RedBlackTree.BLACK);
-    assertThat(tree.root.left.color).isEqualTo(RedBlackTree.RED);
-    assertThat(tree.root.right.color).isEqualTo(RedBlackTree.RED);
+    assertEquals(RedBlackTree.BLACK, tree.root.color);
+    assertEquals(RedBlackTree.RED, tree.root.left.color);
+    assertEquals(RedBlackTree.RED, tree.root.right.color);
 
-    assertThat(tree.root).isEqualTo(tree.root.left.parent);
-    assertThat(tree.root).isEqualTo(tree.root.right.parent);
+    assertSame(tree.root, tree.root.left.parent);
+    assertSame(tree.root, tree.root.right.parent);
 
     assertNullChildren(tree, tree.root.left, tree.root.right);
     assertCorrectParentLinks(tree, tree.root, tree.NIL);
@@ -81,16 +82,16 @@ public class RedBlackTreeTest {
     tree.insert(3);
     tree.insert(2);
 
-    assertThat(tree.root.value.intValue()).isEqualTo(2);
-    assertThat(tree.root.left.value.intValue()).isEqualTo(1);
-    assertThat(tree.root.right.value.intValue()).isEqualTo(3);
+    assertEquals(2, tree.root.value);
+    assertEquals(1, tree.root.left.value);
+    assertEquals(3, tree.root.right.value);
 
-    assertThat(tree.root.color).isEqualTo(RedBlackTree.BLACK);
-    assertThat(tree.root.left.color).isEqualTo(RedBlackTree.RED);
-    assertThat(tree.root.right.color).isEqualTo(RedBlackTree.RED);
+    assertEquals(RedBlackTree.BLACK, tree.root.color);
+    assertEquals(RedBlackTree.RED, tree.root.left.color);
+    assertEquals(RedBlackTree.RED, tree.root.right.color);
 
-    assertThat(tree.root).isEqualTo(tree.root.left.parent);
-    assertThat(tree.root).isEqualTo(tree.root.right.parent);
+    assertSame(tree.root, tree.root.left.parent);
+    assertSame(tree.root, tree.root.right.parent);
 
     assertNullChildren(tree, tree.root.left, tree.root.right);
     assertCorrectParentLinks(tree, tree.root, tree.NIL);
@@ -103,16 +104,16 @@ public class RedBlackTreeTest {
     tree.insert(2);
     tree.insert(3);
 
-    assertThat(tree.root.value.intValue()).isEqualTo(2);
-    assertThat(tree.root.left.value.intValue()).isEqualTo(1);
-    assertThat(tree.root.right.value.intValue()).isEqualTo(3);
+    assertEquals(2, tree.root.value);
+    assertEquals(1, tree.root.left.value);
+    assertEquals(3, tree.root.right.value);
 
-    assertThat(tree.root.color).isEqualTo(RedBlackTree.BLACK);
-    assertThat(tree.root.left.color).isEqualTo(RedBlackTree.RED);
-    assertThat(tree.root.right.color).isEqualTo(RedBlackTree.RED);
+    assertEquals(RedBlackTree.BLACK, tree.root.color);
+    assertEquals(RedBlackTree.RED, tree.root.left.color);
+    assertEquals(RedBlackTree.RED, tree.root.right.color);
 
-    assertThat(tree.root).isEqualTo(tree.root.left.parent);
-    assertThat(tree.root).isEqualTo(tree.root.right.parent);
+    assertSame(tree.root, tree.root.left.parent);
+    assertSame(tree.root, tree.root.right.parent);
 
     assertNullChildren(tree, tree.root.left, tree.root.right);
     assertCorrectParentLinks(tree, tree.root, tree.NIL);
@@ -128,17 +129,17 @@ public class RedBlackTreeTest {
     tree.insert(3);
     tree.insert(4);
 
-    assertThat(tree.root.value.intValue()).isEqualTo(2);
-    assertThat(tree.root.left.value.intValue()).isEqualTo(1);
-    assertThat(tree.root.right.value.intValue()).isEqualTo(3);
-    assertThat(tree.root.right.right.value.intValue()).isEqualTo(4);
+    assertEquals(2, tree.root.value);
+    assertEquals(1, tree.root.left.value);
+    assertEquals(3, tree.root.right.value);
+    assertEquals(4, tree.root.right.right.value);
 
-    assertThat(tree.root.color).isEqualTo(RedBlackTree.BLACK);
-    assertThat(tree.root.left.color).isEqualTo(RedBlackTree.BLACK);
-    assertThat(tree.root.right.color).isEqualTo(RedBlackTree.BLACK);
-    assertThat(tree.root.right.right.color).isEqualTo(RedBlackTree.RED);
+    assertEquals(RedBlackTree.BLACK, tree.root.color);
+    assertEquals(RedBlackTree.BLACK, tree.root.left.color);
+    assertEquals(RedBlackTree.BLACK, tree.root.right.color);
+    assertEquals(RedBlackTree.RED, tree.root.right.right.color);
 
-    assertThat(tree.root.right.left).isEqualTo(tree.NIL);
+    assertEquals(tree.NIL, tree.root.right.left);
     assertNullChildren(tree, tree.root.left, tree.root.right.right);
     assertCorrectParentLinks(tree, tree.root, tree.NIL);
 
@@ -146,17 +147,17 @@ public class RedBlackTreeTest {
 
     tree.insert(5);
 
-    assertThat(tree.root.value.intValue()).isEqualTo(2);
-    assertThat(tree.root.left.value.intValue()).isEqualTo(1);
-    assertThat(tree.root.right.value.intValue()).isEqualTo(4);
-    assertThat(tree.root.right.left.value.intValue()).isEqualTo(3);
-    assertThat(tree.root.right.right.value.intValue()).isEqualTo(5);
+    assertEquals(2, tree.root.value);
+    assertEquals(1, tree.root.left.value);
+    assertEquals(4, tree.root.right.value);
+    assertEquals(3, tree.root.right.left.value);
+    assertEquals(5, tree.root.right.right.value);
 
-    assertThat(tree.root.color).isEqualTo(RedBlackTree.BLACK);
-    assertThat(tree.root.left.color).isEqualTo(RedBlackTree.BLACK);
-    assertThat(tree.root.right.color).isEqualTo(RedBlackTree.BLACK);
-    assertThat(tree.root.right.left.color).isEqualTo(RedBlackTree.RED);
-    assertThat(tree.root.right.right.color).isEqualTo(RedBlackTree.RED);
+    assertEquals(RedBlackTree.BLACK, tree.root.color);
+    assertEquals(RedBlackTree.BLACK, tree.root.left.color);
+    assertEquals(RedBlackTree.BLACK, tree.root.right.color);
+    assertEquals(RedBlackTree.RED, tree.root.right.left.color);
+    assertEquals(RedBlackTree.RED, tree.root.right.right.color);
     assertCorrectParentLinks(tree, tree.root, tree.NIL);
   }
 
@@ -170,18 +171,18 @@ public class RedBlackTreeTest {
     tree.insert(4);
     tree.insert(1);
 
-    assertThat(tree.root.value.intValue()).isEqualTo(3);
-    assertThat(tree.root.left.value.intValue()).isEqualTo(2);
-    assertThat(tree.root.right.value.intValue()).isEqualTo(4);
-    assertThat(tree.root.left.left.value.intValue()).isEqualTo(1);
+    assertEquals(3, tree.root.value);
+    assertEquals(2, tree.root.left.value);
+    assertEquals(4, tree.root.right.value);
+    assertEquals(1, tree.root.left.left.value);
 
-    assertThat(tree.root.color).isEqualTo(RedBlackTree.BLACK);
-    assertThat(tree.root.left.color).isEqualTo(RedBlackTree.BLACK);
-    assertThat(tree.root.right.color).isEqualTo(RedBlackTree.BLACK);
-    assertThat(tree.root.left.left.color).isEqualTo(RedBlackTree.RED);
+    assertEquals(RedBlackTree.BLACK, tree.root.color);
+    assertEquals(RedBlackTree.BLACK, tree.root.left.color);
+    assertEquals(RedBlackTree.BLACK, tree.root.right.color);
+    assertEquals(RedBlackTree.RED, tree.root.left.left.color);
 
-    assertThat(tree.root.right.left).isEqualTo(tree.NIL);
-    assertThat(tree.root.left.right).isEqualTo(tree.NIL);
+    assertEquals(tree.NIL, tree.root.right.left);
+    assertEquals(tree.NIL, tree.root.left.right);
     assertNullChildren(tree, tree.root.right, tree.root.left.left);
     assertCorrectParentLinks(tree, tree.root, tree.NIL);
 
@@ -189,17 +190,17 @@ public class RedBlackTreeTest {
 
     tree.insert(0);
 
-    assertThat(tree.root.value.intValue()).isEqualTo(3);
-    assertThat(tree.root.left.value.intValue()).isEqualTo(1);
-    assertThat(tree.root.right.value.intValue()).isEqualTo(4);
-    assertThat(tree.root.left.left.value.intValue()).isEqualTo(0);
-    assertThat(tree.root.left.right.value.intValue()).isEqualTo(2);
+    assertEquals(3, tree.root.value);
+    assertEquals(1, tree.root.left.value);
+    assertEquals(4, tree.root.right.value);
+    assertEquals(0, tree.root.left.left.value);
+    assertEquals(2, tree.root.left.right.value);
 
-    assertThat(tree.root.color).isEqualTo(RedBlackTree.BLACK);
-    assertThat(tree.root.left.color).isEqualTo(RedBlackTree.BLACK);
-    assertThat(tree.root.right.color).isEqualTo(RedBlackTree.BLACK);
-    assertThat(tree.root.left.left.color).isEqualTo(RedBlackTree.RED);
-    assertThat(tree.root.left.right.color).isEqualTo(RedBlackTree.RED);
+    assertEquals(RedBlackTree.BLACK, tree.root.color);
+    assertEquals(RedBlackTree.BLACK, tree.root.left.color);
+    assertEquals(RedBlackTree.BLACK, tree.root.right.color);
+    assertEquals(RedBlackTree.RED, tree.root.left.left.color);
+    assertEquals(RedBlackTree.RED, tree.root.left.right.color);
     assertCorrectParentLinks(tree, tree.root, tree.NIL);
   }
 
@@ -209,28 +210,28 @@ public class RedBlackTreeTest {
     int[] values = {41, 44, 95, 83, 72, 66, 94, 90, 59};
     for (int v : values) tree.insert(v);
 
-    assertThat(tree.root.value.intValue()).isEqualTo(44);
+    assertEquals(44, tree.root.value);
 
-    assertThat(tree.root.left.value.intValue()).isEqualTo(41);
-    assertThat(tree.root.right.value.intValue()).isEqualTo(83);
+    assertEquals(41, tree.root.left.value);
+    assertEquals(83, tree.root.right.value);
 
-    assertThat(tree.root.right.left.value.intValue()).isEqualTo(66);
-    assertThat(tree.root.right.right.value.intValue()).isEqualTo(94);
+    assertEquals(66, tree.root.right.left.value);
+    assertEquals(94, tree.root.right.right.value);
 
-    assertThat(tree.root.right.left.left.value.intValue()).isEqualTo(59);
-    assertThat(tree.root.right.left.right.value.intValue()).isEqualTo(72);
-    assertThat(tree.root.right.right.left.value.intValue()).isEqualTo(90);
-    assertThat(tree.root.right.right.right.value.intValue()).isEqualTo(95);
+    assertEquals(59, tree.root.right.left.left.value);
+    assertEquals(72, tree.root.right.left.right.value);
+    assertEquals(90, tree.root.right.right.left.value);
+    assertEquals(95, tree.root.right.right.right.value);
 
-    assertThat(tree.root.color).isEqualTo(RedBlackTree.BLACK);
-    assertThat(tree.root.left.color).isEqualTo(RedBlackTree.BLACK);
-    assertThat(tree.root.right.color).isEqualTo(RedBlackTree.RED);
-    assertThat(tree.root.right.left.color).isEqualTo(RedBlackTree.BLACK);
-    assertThat(tree.root.right.right.color).isEqualTo(RedBlackTree.BLACK);
-    assertThat(tree.root.right.left.left.color).isEqualTo(RedBlackTree.RED);
-    assertThat(tree.root.right.left.right.color).isEqualTo(RedBlackTree.RED);
-    assertThat(tree.root.right.right.left.color).isEqualTo(RedBlackTree.RED);
-    assertThat(tree.root.right.right.right.color).isEqualTo(RedBlackTree.RED);
+    assertEquals(RedBlackTree.BLACK, tree.root.color);
+    assertEquals(RedBlackTree.BLACK, tree.root.left.color);
+    assertEquals(RedBlackTree.RED, tree.root.right.color);
+    assertEquals(RedBlackTree.BLACK, tree.root.right.left.color);
+    assertEquals(RedBlackTree.BLACK, tree.root.right.right.color);
+    assertEquals(RedBlackTree.RED, tree.root.right.left.left.color);
+    assertEquals(RedBlackTree.RED, tree.root.right.left.right.color);
+    assertEquals(RedBlackTree.RED, tree.root.right.right.left.color);
+    assertEquals(RedBlackTree.RED, tree.root.right.right.right.color);
   }
 
   @Test
@@ -239,9 +240,9 @@ public class RedBlackTreeTest {
     TreeSet<Integer> set = new TreeSet<>();
     for (int i = 0; i < TEST_SZ; i++) {
       int v = randValue();
-      assertThat(tree.insert(v)).isEqualTo(set.add(v));
-      assertThat(tree.size()).isEqualTo(tree.size());
-      assertThat(tree.contains(v)).isTrue();
+      assertEquals(set.add(v), tree.insert(v));
+      assertEquals(set.size(), tree.size());
+      assertTrue(tree.contains(v));
       assertBinarySearchTreeInvariant(tree, tree.root);
     }
   }
@@ -253,23 +254,23 @@ public class RedBlackTreeTest {
     tree.insert(9);
 
     tree.delete(5);
-    assertThat(tree.contains(5)).isFalse();
+    assertFalse(tree.contains(5));
 
     tree.delete(7);
-    assertThat(tree.contains(7)).isFalse();
+    assertFalse(tree.contains(7));
 
     tree.delete(9);
-    assertThat(tree.contains(9)).isFalse();
+    assertFalse(tree.contains(9));
   }
 
   @Test
   public void testNullRemoval() {
-    assertThat(tree.delete(null)).isFalse();
+    assertFalse(tree.delete(null));
   }
 
   @Test
   public void testNumberDoesntExist() {
-    assertThat(tree.delete(0)).isFalse();
+    assertFalse(tree.delete(0));
   }
 
   @Test
@@ -289,11 +290,11 @@ public class RedBlackTreeTest {
         Integer value = lst.get(j);
         boolean treeSetRemove = ts.remove(value);
         boolean treeRemove = tree.delete(value);
-        assertThat(treeSetRemove).isEqualTo(treeRemove);
-        assertThat(tree.contains(value)).isFalse();
-        assertThat(tree.size()).isEqualTo(i - j - 1);
+        assertEquals(treeSetRemove, treeRemove);
+        assertFalse(tree.contains(value));
+        assertEquals(i - j - 1, tree.size());
       }
-      assertThat(ts.isEmpty()).isEqualTo(tree.isEmpty());
+      assertEquals(ts.isEmpty(), tree.isEmpty());
     }
   }
 
@@ -314,8 +315,8 @@ public class RedBlackTreeTest {
 
   static void assertNullChildren(RedBlackTree tree, RedBlackTree.Node... nodes) {
     for (RedBlackTree.Node node : nodes) {
-      assertThat(node.left).isEqualTo(tree.NIL);
-      assertThat(node.right).isEqualTo(tree.NIL);
+      assertEquals(tree.NIL, node.left);
+      assertEquals(tree.NIL, node.right);
     }
   }
 
@@ -323,7 +324,7 @@ public class RedBlackTreeTest {
       RedBlackTree tree, RedBlackTree.Node node, RedBlackTree.Node parent) {
     if (node == tree.NIL) return;
     try {
-      assertThat(node.parent).isEqualTo(parent);
+      assertSame(parent, node.parent);
     } catch (AssertionError e) {
       e.printStackTrace();
     }

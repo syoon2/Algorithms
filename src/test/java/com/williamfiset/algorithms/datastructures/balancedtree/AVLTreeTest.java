@@ -1,13 +1,14 @@
 package com.williamfiset.algorithms.datastructures.balancedtree;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.TreeSet;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.*;
 
 public class AVLTreeTest {
 
@@ -18,24 +19,24 @@ public class AVLTreeTest {
 
   private AVLTreeRecursive<Integer> tree;
 
-  @Before
+  @BeforeEach
   public void setup() {
     tree = new AVLTreeRecursive<>();
   }
 
   @Test
   public void testNullInsertion() {
-    assertThat(tree.insert(null)).isFalse();
+    assertFalse(tree.insert(null));
   }
 
   @Test
   public void testNullRemoval() {
-    assertThat(tree.remove(null)).isFalse();
+    assertFalse(tree.remove(null));
   }
 
   @Test
   public void testTreeContainsNull() {
-    assertThat(tree.contains(null)).isFalse();
+    assertFalse(tree.contains(null));
   }
 
   @Test
@@ -45,14 +46,14 @@ public class AVLTreeTest {
     tree.insert(2);
     tree.insert(1);
 
-    assertThat(tree.root.value.intValue()).isEqualTo(2);
-    assertThat(tree.root.left.value.intValue()).isEqualTo(1);
-    assertThat(tree.root.right.value.intValue()).isEqualTo(3);
+    assertEquals(2, tree.root.value);
+    assertEquals(1, tree.root.left.value);
+    assertEquals(3, tree.root.right.value);
 
-    assertThat(tree.root.left.left).isNull();
-    assertThat(tree.root.left.right).isNull();
-    assertThat(tree.root.right.left).isNull();
-    assertThat(tree.root.right.right).isNull();
+    assertNull(tree.root.left.left);
+    assertNull(tree.root.left.right);
+    assertNull(tree.root.right.left);
+    assertNull(tree.root.right.right);
   }
 
   @Test
@@ -62,14 +63,14 @@ public class AVLTreeTest {
     tree.insert(1);
     tree.insert(2);
 
-    assertThat(tree.root.value.intValue()).isEqualTo(2);
-    assertThat(tree.root.left.value.intValue()).isEqualTo(1);
-    assertThat(tree.root.right.value.intValue()).isEqualTo(3);
+    assertEquals(2, tree.root.value);
+    assertEquals(1, tree.root.left.value);
+    assertEquals(3, tree.root.right.value);
 
-    assertThat(tree.root.left.left).isNull();
-    assertThat(tree.root.left.right).isNull();
-    assertThat(tree.root.right.left).isNull();
-    assertThat(tree.root.right.right).isNull();
+    assertNull(tree.root.left.left);
+    assertNull(tree.root.left.right);
+    assertNull(tree.root.right.left);
+    assertNull(tree.root.right.right);
   }
 
   @Test
@@ -79,14 +80,14 @@ public class AVLTreeTest {
     tree.insert(2);
     tree.insert(3);
 
-    assertThat(tree.root.value.intValue()).isEqualTo(2);
-    assertThat(tree.root.left.value.intValue()).isEqualTo(1);
-    assertThat(tree.root.right.value.intValue()).isEqualTo(3);
+    assertEquals(2, tree.root.value);
+    assertEquals(1, tree.root.left.value);
+    assertEquals(3, tree.root.right.value);
 
-    assertThat(tree.root.left.left).isNull();
-    assertThat(tree.root.left.right).isNull();
-    assertThat(tree.root.right.left).isNull();
-    assertThat(tree.root.right.right).isNull();
+    assertNull(tree.root.left.left);
+    assertNull(tree.root.left.right);
+    assertNull(tree.root.right.left);
+    assertNull(tree.root.right.right);
   }
 
   @Test
@@ -96,21 +97,21 @@ public class AVLTreeTest {
     tree.insert(3);
     tree.insert(2);
 
-    assertThat(tree.root.value.intValue()).isEqualTo(2);
-    assertThat(tree.root.left.value.intValue()).isEqualTo(1);
-    assertThat(tree.root.right.value.intValue()).isEqualTo(3);
+    assertEquals(2, tree.root.value);
+    assertEquals(1, tree.root.left.value);
+    assertEquals(3, tree.root.right.value);
 
-    assertThat(tree.root.left.left).isNull();
-    assertThat(tree.root.left.right).isNull();
-    assertThat(tree.root.right.left).isNull();
-    assertThat(tree.root.right.right).isNull();
+    assertNull(tree.root.left.left);
+    assertNull(tree.root.left.right);
+    assertNull(tree.root.right.left);
+    assertNull(tree.root.right.right);
   }
 
   @Test
   public void testRandomizedBalanceFactorTest() {
     for (int i = 0; i < TEST_SZ; i++) {
       tree.insert(randValue());
-      assertThat(validateBalanceFactorValues(tree.root)).isTrue();
+      assertTrue(validateBalanceFactorValues(tree.root));
     }
   }
 
@@ -128,9 +129,9 @@ public class AVLTreeTest {
     for (int i = 0; i < TEST_SZ; i++) {
       int v = randValue();
 
-      assertThat(tree.insert(v)).isEqualTo(set.add(v));
-      assertThat(tree.size()).isEqualTo(set.size());
-      assertThat(tree.validateBSTInvarient(tree.root)).isTrue();
+      assertEquals(set.add(v), tree.insert(v));
+      assertEquals(set.size(), tree.size());
+      assertTrue(tree.validateBSTInvarient(tree.root));
     }
   }
 
@@ -170,12 +171,12 @@ public class AVLTreeTest {
 
         Integer value = lst.get(j);
 
-        assertThat(tree.remove(value)).isEqualTo(ts.remove(value));
-        assertThat(tree.contains(value)).isFalse();
-        assertThat(tree.size()).isEqualTo(size - j - 1);
+        assertEquals(ts.remove(value), tree.remove(value));
+        assertFalse(tree.contains(value));
+        assertEquals(size - j - 1, tree.size());
       }
 
-      assertThat(tree.isEmpty()).isTrue();
+      assertTrue(tree.isEmpty());
     }
   }
 

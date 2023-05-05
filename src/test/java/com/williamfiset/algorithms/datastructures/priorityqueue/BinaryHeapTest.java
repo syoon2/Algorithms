@@ -1,28 +1,29 @@
 package com.williamfiset.algorithms.datastructures.priorityqueue;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
-import org.junit.*;
+
+import org.junit.jupiter.api.*;
 
 public class BinaryHeapTest {
 
   static final int LOOPS = 100;
   static final int MAX_SZ = 100;
 
-  @Before
+  @BeforeEach
   public void setup() {}
 
   @Test
   public void testEmpty() {
     BinaryHeap<Integer> q = new BinaryHeap<>();
-    assertThat(q.size()).isEqualTo(0);
-    assertThat(q.isEmpty()).isTrue();
-    assertThat(q.poll()).isNull();
-    assertThat(q.peek()).isNull();
+    assertEquals(0, q.size());
+    assertTrue(q.isEmpty());
+    assertNull(q.poll());
+    assertNull(q.peek());
   }
 
   @Test
@@ -33,13 +34,13 @@ public class BinaryHeapTest {
 
     // Try manually creating heap
     for (int n : nums) q.add(n);
-    for (int i = 1; i <= 9; i++) assertThat(q.poll()).isEqualTo(i);
+    for (int i = 1; i <= 9; i++) assertEquals(i, q.poll());
 
     q.clear();
 
     // Try heapify constructor
     q = new BinaryHeap<>(nums);
-    for (int i = 1; i <= 9; i++) assertThat(q.poll()).isEqualTo(i);
+    for (int i = 1; i <= 9; i++) assertEquals(i, q.poll());
   }
 
   @Test
@@ -53,9 +54,9 @@ public class BinaryHeapTest {
       PriorityQueue<Integer> pq2 = new PriorityQueue<>(i);
       for (int x : lst) pq2.add(x);
 
-      assertThat(pq.isMinHeap(0)).isTrue();
+      assertTrue(pq.isMinHeap(0));
       while (!pq2.isEmpty()) {
-        assertThat(pq.poll()).isEqualTo(pq2.poll());
+        assertEquals(pq2.poll(), pq.poll());
       }
     }
   }
@@ -67,8 +68,8 @@ public class BinaryHeapTest {
     String[] strs = {"aa", "bb", "cc", "dd", "ee"};
     q = new BinaryHeap<>(strs);
     q.clear();
-    assertThat(q.size()).isEqualTo(0);
-    assertThat(q.isEmpty()).isTrue();
+    assertEquals(0, q.size());
+    assertTrue(q.isEmpty());
   }
 
   @Test
@@ -77,15 +78,15 @@ public class BinaryHeapTest {
     String[] strs = {"aa", "bb", "cc", "dd", "ee"};
     BinaryHeap<String> q = new BinaryHeap<>(strs);
     q.remove("aa");
-    assertThat(q.contains("aa")).isFalse();
+    assertFalse(q.contains("aa"));
     q.remove("bb");
-    assertThat(q.contains("bb")).isFalse();
+    assertFalse(q.contains("bb"));
     q.remove("cc");
-    assertThat(q.contains("cc")).isFalse();
+    assertFalse(q.contains("cc"));
     q.remove("dd");
-    assertThat(q.contains("dd")).isFalse();
+    assertFalse(q.contains("dd"));
     q.clear();
-    assertThat(q.contains("ee")).isFalse();
+    assertFalse(q.contains("ee"));
   }
 
   @Test
@@ -104,35 +105,35 @@ public class BinaryHeapTest {
       for (int j = 0; j < randNums.size(); j++) {
 
         int randVal = randNums.get(j);
-        assertThat(pq.contains(randVal)).isEqualTo(PQ.contains(randVal));
+        assertEquals(PQ.contains(randVal), pq.contains(randVal));
         pq.remove(randVal);
         PQ.remove(randVal);
-        assertThat(pq.contains(randVal)).isEqualTo(PQ.contains(randVal));
+        assertEquals(PQ.contains(randVal), pq.contains(randVal));
       }
     }
   }
 
   public void sequentialRemoving(Integer[] in, Integer[] removeOrder) {
 
-    assertThat(in.length).isEqualTo(removeOrder.length);
+    assertEquals(in.length, removeOrder.length);
 
     BinaryHeap<Integer> pq = new BinaryHeap<>(in);
     PriorityQueue<Integer> PQ = new PriorityQueue<>();
     for (int value : in) PQ.offer(value);
 
-    assertThat(pq.isMinHeap(0)).isTrue();
+    assertTrue(pq.isMinHeap(0));
 
     for (int i = 0; i < removeOrder.length; i++) {
 
       int elem = removeOrder[i];
 
-      assertThat(pq.peek()).isEqualTo(PQ.peek());
-      assertThat(pq.remove(elem)).isEqualTo(PQ.remove(elem));
-      assertThat(pq.size()).isEqualTo(PQ.size());
-      assertThat(pq.isMinHeap(0)).isTrue();
+      assertEquals(PQ.peek(), pq.peek());
+      assertEquals(PQ.remove(elem), pq.remove(elem));
+      assertEquals(PQ.size(), pq.size());
+      assertTrue(pq.isMinHeap(0));
     }
 
-    assertThat(pq.isEmpty()).isTrue();
+    assertTrue(pq.isEmpty());
   }
 
   @Test
@@ -165,17 +166,17 @@ public class BinaryHeapTest {
     Integer[] in = new Integer[] {2, 7, 2, 11, 7, 13, 2};
     BinaryHeap<Integer> pq = new BinaryHeap<>(in);
 
-    assertThat(pq.peek()).isEqualTo(2);
+    assertEquals(2, pq.peek());
     pq.add(3);
 
-    assertThat(pq.poll()).isEqualTo(2);
-    assertThat(pq.poll()).isEqualTo(2);
-    assertThat(pq.poll()).isEqualTo(2);
-    assertThat(pq.poll()).isEqualTo(3);
-    assertThat(pq.poll()).isEqualTo(7);
-    assertThat(pq.poll()).isEqualTo(7);
-    assertThat(pq.poll()).isEqualTo(11);
-    assertThat(pq.poll()).isEqualTo(13);
+    assertEquals(2, pq.poll());
+    assertEquals(2, pq.poll());
+    assertEquals(2, pq.poll());
+    assertEquals(3, pq.poll());
+    assertEquals(7, pq.poll());
+    assertEquals(7, pq.poll());
+    assertEquals(11, pq.poll());
+    assertEquals(13, pq.poll());
   }
 
   @Test
@@ -196,18 +197,18 @@ public class BinaryHeapTest {
 
       while (!pq1.isEmpty()) {
 
-        assertThat(pq2.isMinHeap(0)).isTrue();
-        assertThat(pq1.size()).isEqualTo(pq2.size());
-        assertThat(pq1.peek()).isEqualTo(pq2.peek());
-        assertThat(pq1.contains(pq1.peek())).isEqualTo(pq2.contains(pq2.peek()));
+        assertTrue(pq2.isMinHeap(0));
+        assertEquals(pq1.size(), pq2.size());
+        assertEquals(pq1.peek(), pq2.peek());
+        assertEquals(pq1.contains(pq1.peek()), pq2.contains(pq2.peek()));
 
         Integer v1 = pq1.poll();
         Integer v2 = pq2.poll();
 
-        assertThat(v1).isEqualTo(v2);
-        assertThat(pq1.peek()).isEqualTo(pq2.peek());
-        assertThat(pq1.size()).isEqualTo(pq2.size());
-        assertThat(pq2.isMinHeap(0));
+        assertEquals(v1, v2);
+        assertEquals(pq1.peek(), pq2.peek());
+        assertEquals(pq1.size(), pq2.size());
+        assertTrue(pq2.isMinHeap(0));
       }
     }
   }
@@ -235,14 +236,14 @@ public class BinaryHeapTest {
 
         int removeNum = randNums.get(index++);
 
-        assertThat(pq2.isMinHeap(0)).isTrue();
-        assertThat(pq1.size()).isEqualTo(pq2.size());
-        assertThat(pq1.peek()).isEqualTo(pq2.peek());
+        assertTrue(pq2.isMinHeap(0));
+        assertEquals(pq1.size(), pq2.size());
+        assertEquals(pq1.peek(), pq2.peek());
         pq1.remove(removeNum);
         pq2.remove(removeNum);
-        assertThat(pq1.peek()).isEqualTo(pq2.peek());
-        assertThat(pq1.size()).isEqualTo(pq2.size());
-        assertThat(pq2.isMinHeap(0)).isTrue();
+        assertEquals(pq1.peek(), pq2.peek());
+        assertEquals(pq1.size(), pq2.size());
+        assertTrue(pq2.isMinHeap(0));
       }
     }
   }
@@ -279,16 +280,16 @@ public class BinaryHeapTest {
 
         int removeNum = nums.get(i);
 
-        assertThat(pq.isMinHeap(0)).isTrue();
-        assertThat(PQ.size()).isEqualTo(pq.size());
-        assertThat(PQ.peek()).isEqualTo(pq.peek());
+        assertTrue(pq.isMinHeap(0));
+        assertEquals(PQ.size(), pq.size());
+        assertEquals(PQ.peek(), pq.peek());
 
         PQ.remove(removeNum);
         pq.remove(removeNum);
 
-        assertThat(PQ.peek()).isEqualTo(pq.peek());
-        assertThat(PQ.size()).isEqualTo(pq.size());
-        assertThat(pq.isMinHeap(0)).isTrue();
+        assertEquals(PQ.peek(), pq.peek());
+        assertEquals(PQ.size(), pq.size());
+        assertTrue(pq.isMinHeap(0));
       }
     }
   }

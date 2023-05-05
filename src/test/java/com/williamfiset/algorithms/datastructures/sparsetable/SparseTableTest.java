@@ -1,9 +1,10 @@
 package com.williamfiset.algorithms.datastructures.sparsetable;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.*;
-import org.junit.*;
+
+import org.junit.jupiter.api.*;
 
 public class SparseTableTest {
 
@@ -25,27 +26,27 @@ public class SparseTableTest {
   private void minQuery(long[] values, int l, int r, long actual, int index) {
     long m = Long.MAX_VALUE;
     for (int i = l; i <= r; i++) m = Math.min(m, values[i]);
-    assertThat(actual).isEqualTo(m);
-    assertThat(values[index]).isEqualTo(m);
+    assertEquals(m, actual);
+    assertEquals(m, values[index]);
   }
 
   private void maxQuery(long[] values, int l, int r, long actual, int index) {
     long m = Long.MIN_VALUE;
     for (int i = l; i <= r; i++) m = Math.max(m, values[i]);
-    assertThat(actual).isEqualTo(m);
-    assertThat(values[index]).isEqualTo(m);
+    assertEquals(m, actual);
+    assertEquals(m, values[index]);
   }
 
   private void sumQuery(long[] values, int l, int r, long actual) {
     long m = 0;
     for (int i = l; i <= r; i++) m += values[i];
-    assertThat(m).isEqualTo(actual);
+    assertEquals(m, actual);
   }
 
   private void multQuery(long[] values, int l, int r, long actual) {
     long m = 1;
     for (int i = l; i <= r; i++) m *= values[i];
-    assertThat(m).isEqualTo(actual);
+    assertEquals(m, actual);
   }
 
   // Computes the Greatest Common Divisor (GCD) of a & b
@@ -57,7 +58,7 @@ public class SparseTableTest {
   private void gcdQuery(long[] values, int l, int r, long actual) {
     long m = values[l];
     for (int i = l; i <= r; i++) m = gcd(m, values[i]);
-    assertThat(m).isEqualTo(actual);
+    assertEquals(m, actual);
   }
 
   private void testAllOperations(long[] values) {
@@ -121,9 +122,9 @@ public class SparseTableTest {
           }
         }
 
-        assertThat(st.query(i, j)).isEqualTo(min);
-        assertThat(i <= minIndex && minIndex <= j).isEqualTo(true);
-        assertThat(st.queryIndex(i, j)).isEqualTo(minIndex);
+        assertEquals(min, st.query(i, j));
+        assertTrue(i <= minIndex && minIndex <= j);
+        assertEquals(minIndex, st.queryIndex(i, j));
       }
     }
   }
@@ -150,13 +151,13 @@ public class SparseTableTest {
               maxIndex = k;
             }
           }
-          assertThat(min_st.query(i, j)).isEqualTo(min);
-          assertThat(i <= minIndex && minIndex <= j).isEqualTo(true);
-          assertThat(min_st.queryIndex(i, j)).isEqualTo(minIndex);
+          assertEquals(min, min_st.query(i, j));
+          assertTrue(i <= minIndex && minIndex <= j);
+          assertEquals(minIndex, min_st.queryIndex(i, j));
 
-          assertThat(max_st.query(i, j)).isEqualTo(max);
-          assertThat(i <= maxIndex && maxIndex <= j).isEqualTo(true);
-          assertThat(max_st.queryIndex(i, j)).isEqualTo(maxIndex);
+          assertEquals(max, max_st.query(i, j));
+          assertTrue(i <= maxIndex && maxIndex <= j);
+          assertEquals(maxIndex, max_st.queryIndex(i, j));
         }
       }
     }

@@ -1,9 +1,10 @@
 package com.williamfiset.algorithms.datastructures.hashtable;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.*;
-import org.junit.*;
+
+import org.junit.jupiter.api.*;
 
 public class HashTableLinearProbingTest {
 
@@ -40,47 +41,47 @@ public class HashTableLinearProbingTest {
 
   HashTableLinearProbing<Integer, Integer> map;
 
-  @Before
+  @BeforeEach
   public void setup() {
     map = new HashTableLinearProbing<>();
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testNullKey() {
-    map.put(null, 5);
+    assertThrows(IllegalArgumentException.class, () -> map.put(null, 5));
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testIllegalCreation1() {
-    new HashTableLinearProbing<>(-3, 0.5);
+    assertThrows(IllegalArgumentException.class, () -> new HashTableLinearProbing<>(-3, 0.5));
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testIllegalCreation2() {
-    new HashTableLinearProbing<>(5, Double.POSITIVE_INFINITY);
+    assertThrows(IllegalArgumentException.class, () -> new HashTableLinearProbing<>(5, Double.POSITIVE_INFINITY));
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testIllegalCreation3() {
-    new HashTableLinearProbing<>(6, -0.5);
+    assertThrows(IllegalArgumentException.class, () -> new HashTableLinearProbing<>(6, -0.5));
   }
 
   @Test
   public void testLegalCreation() {
-    new HashTableLinearProbing<>(6, 0.9);
+    assertDoesNotThrow(() -> new HashTableLinearProbing<>(6, 0.9));
   }
 
   @Test
   public void testUpdatingValue() {
 
     map.add(1, 1);
-    assertThat(map.get(1)).isEqualTo(1);
+    assertEquals(1, map.get(1));
 
     map.add(1, 5);
-    assertThat(map.get(1)).isEqualTo(5);
+    assertEquals(5, map.get(1));
 
     map.add(1, -7);
-    assertThat(map.get(1)).isEqualTo(-7);
+    assertEquals(-7, map.get(1));
   }
 
   @Test
@@ -92,48 +93,52 @@ public class HashTableLinearProbingTest {
 
       map.clear();
       map2.clear();
-      assertThat(map.isEmpty()).isTrue();
+      assertTrue(map.isEmpty());
 
       map = new HashTableLinearProbing<>();
 
       List<Integer> rand_nums = genRandList(MAX_SIZE);
-      for (Integer key : rand_nums) assertThat(map.add(key, key)).isEqualTo(map2.put(key, key));
+      for (Integer key : rand_nums) assertEquals(map2.put(key, key), map.add(key, key));
 
       int count = 0;
       for (Integer key : map) {
-        assertThat(map.get(key)).isEqualTo(key);
-        assertThat(map.get(key)).isEqualTo(map2.get(key));
-        assertThat(map.hasKey(key)).isTrue();
-        assertThat(rand_nums.contains(key)).isTrue();
+        assertEquals(key, map.get(key));
+        assertEquals(map2.get(key), map.get(key));
+        assertTrue(map.hasKey(key));
+        assertTrue(rand_nums.contains(key));
         count++;
       }
 
       for (Integer key : map2.keySet()) {
-        assertThat(map.get(key)).isEqualTo(key);
+        assertEquals(key, map.get(key));
       }
 
       Set<Integer> set = new HashSet<>();
       for (int n : rand_nums) set.add(n);
 
-      assertThat(set.size()).isEqualTo(count);
-      assertThat(map2.size()).isEqualTo(count);
+      assertEquals(count, set.size());
+      assertEquals(count, map2.size());
     }
   }
 
-  @Test(expected = java.util.ConcurrentModificationException.class)
+  @Test
   public void testConcurrentModificationException() {
-    map.add(1, 1);
-    map.add(2, 1);
-    map.add(3, 1);
-    for (Integer key : map) map.add(4, 4);
+    assertThrows(ConcurrentModificationException.class, () -> {
+      map.add(1, 1);
+      map.add(2, 1);
+      map.add(3, 1);
+      for (Integer key : map) map.add(4, 4);
+    });
   }
 
-  @Test(expected = java.util.ConcurrentModificationException.class)
+  @Test
   public void testConcurrentModificationException2() {
-    map.add(1, 1);
-    map.add(2, 1);
-    map.add(3, 1);
-    for (Integer key : map) map.remove(2);
+    assertThrows(ConcurrentModificationException.class, () -> {
+      map.add(1, 1);
+      map.add(2, 1);
+      map.add(3, 1);
+      for (Integer key : map) map.remove(2);
+    });
   }
 
   @Test
@@ -154,12 +159,12 @@ public class HashTableLinearProbingTest {
         map.put(randomVal, 5);
       }
 
-      assertThat(map.size()).isEqualTo(keys_set.size());
+      assertEquals(keys_set.size(), map.size());
 
       List<Integer> keys = map.keys();
       for (Integer key : keys) map.remove(key);
 
-      assertThat(map.isEmpty()).isTrue();
+      assertTrue(map.isEmpty());
     }
   }
 
@@ -172,21 +177,21 @@ public class HashTableLinearProbingTest {
     map.put(11, 0);
     map.put(12, 0);
     map.put(13, 0);
-    assertThat(map.size()).isEqualTo(3);
+    assertEquals(3, map.size());
 
     // Add ten more
     for (int i = 1; i <= 10; i++) map.put(i, 0);
-    assertThat(map.size()).isEqualTo(13);
+    assertEquals(13, map.size());
 
     // Remove ten
     for (int i = 1; i <= 10; i++) map.remove(i);
-    assertThat(map.size()).isEqualTo(3);
+    assertEquals(3, map.size());
 
     // remove three
     map.remove(11);
     map.remove(12);
     map.remove(13);
-    assertThat(map.size()).isEqualTo(0);
+    assertEquals(0, map.size());
   }
 
   @Test
@@ -209,7 +214,7 @@ public class HashTableLinearProbingTest {
     map.remove(o1);
     map.remove(o4);
 
-    assertThat(map.size()).isEqualTo(0);
+    assertEquals(0, map.size());
   }
 
   @Test
@@ -221,7 +226,7 @@ public class HashTableLinearProbingTest {
 
       map.clear();
       jmap.clear();
-      assertThat(jmap.size()).isEqualTo(map.size());
+      assertEquals(jmap.size(), map.size());
 
       map = new HashTableLinearProbing<>();
 
@@ -236,17 +241,17 @@ public class HashTableLinearProbingTest {
         int key = nums.get(i);
         int val = i;
 
-        if (r < probability1) assertThat(jmap.put(key, val)).isEqualTo(map.put(key, val));
+        if (r < probability1) assertEquals(jmap.put(key, val), map.put(key, val));
 
-        assertThat(jmap.get(key)).isEqualTo(map.get(key));
-        assertThat(jmap.containsKey(key)).isEqualTo(map.containsKey(key));
-        assertThat(jmap.size()).isEqualTo(map.size());
+        assertEquals(jmap.get(key), map.get(key));
+        assertEquals(jmap.containsKey(key), map.containsKey(key));
+        assertEquals(jmap.size(), map.size());
 
-        if (r > probability2) assertThat(map.remove(key)).isEqualTo(jmap.remove(key));
+        if (r > probability2) assertEquals(jmap.remove(key), map.remove(key));
 
-        assertThat(jmap.get(key)).isEqualTo(map.get(key));
-        assertThat(jmap.containsKey(key)).isEqualTo(map.containsKey(key));
-        assertThat(jmap.size()).isEqualTo(map.size());
+        assertEquals(jmap.get(key), map.get(key));
+        assertEquals(jmap.containsKey(key), map.containsKey(key));
+        assertEquals(jmap.size(), map.size());
       }
     }
   }
@@ -261,7 +266,7 @@ public class HashTableLinearProbingTest {
 
       m.clear();
       hm.clear();
-      assertThat(m.size()).isEqualTo(hm.size());
+      assertEquals(hm.size(), m.size());
 
       int sz = randInt(1, MAX_SIZE);
       m = new HashTableLinearProbing<>(sz);
@@ -295,8 +300,8 @@ public class HashTableLinearProbingTest {
           l2.add(rand_val);
         }
 
-        assertThat(m.size()).isEqualTo(hm.size());
-        assertThat(l1).isEqualTo(l2);
+        assertEquals(hm.size(), m.size());
+        assertIterableEquals(l2, l1);
       }
     }
   }

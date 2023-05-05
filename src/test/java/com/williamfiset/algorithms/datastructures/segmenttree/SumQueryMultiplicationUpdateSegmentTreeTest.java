@@ -4,18 +4,18 @@
  */
 package com.williamfiset.algorithms.datastructures.segmenttree;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.williamfiset.algorithms.utils.TestUtils;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.*;
 
 public class SumQueryMultiplicationUpdateSegmentTreeTest {
 
   static int ITERATIONS = 100;
   static int MAX_N = 28;
 
-  @Before
+  @BeforeEach
   public void setup() {}
 
   @Test
@@ -25,13 +25,13 @@ public class SumQueryMultiplicationUpdateSegmentTreeTest {
 
     st.rangeUpdate1(1, 3, 3);
 
-    assertThat(st.rangeQuery1(1, 3)).isEqualTo(4 * 3 + 5 * 3 + 3 * 3);
-    assertThat(st.rangeQuery1(0, 4)).isEqualTo(1 + 4 * 3 + 5 * 3 + 3 * 3 + 2);
-    assertThat(st.rangeQuery1(0, 2)).isEqualTo(1 + 4 * 3 + 5 * 3);
-    assertThat(st.rangeQuery1(2, 4)).isEqualTo(5 * 3 + 3 * 3 + 2);
+    assertEquals(4 * 3 + 5 * 3 + 3 * 3, st.rangeQuery1(1, 3));
+    assertEquals(1 + 4 * 3 + 5 * 3 + 3 * 3 + 2, st.rangeQuery1(0, 4));
+    assertEquals(1 + 4 * 3 + 5 * 3, st.rangeQuery1(0, 2));
+    assertEquals(5 * 3 + 3 * 3 + 2, st.rangeQuery1(2, 4));
 
     st.rangeUpdate1(1, 3, 2);
-    assertThat(st.rangeQuery1(1, 3)).isEqualTo(4 * 3 * 2 + 5 * 3 * 2 + 3 * 3 * 2);
+    assertEquals(4 * 3 * 2 + 5 * 3 * 2 + 3 * 3 * 2, st.rangeQuery1(1, 3));
   }
 
   @Test
@@ -62,7 +62,7 @@ public class SumQueryMultiplicationUpdateSegmentTreeTest {
         // Range query
         long bfSum = bruteForceSum(ar, i1, i2);
         long segTreeSum = st.rangeQuery1(i1, i2);
-        assertThat(bfSum).isEqualTo(segTreeSum);
+        assertEquals(bfSum, segTreeSum);
       }
     }
   }

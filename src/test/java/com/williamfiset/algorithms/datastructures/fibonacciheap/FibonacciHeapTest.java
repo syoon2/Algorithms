@@ -1,7 +1,7 @@
 package com.williamfiset.algorithms.datastructures.fibonacciheap;
 
-import static com.google.common.truth.Truth.assertThat;
 import static java.util.Collections.sort;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,9 +9,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Queue;
 import java.util.Random;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.*;
 
 // Disclaimer: Based by help of
 // "http://langrsoft.com/jeff/2011/11/test-driving-a-heap-based-priority-queue/">Test-Driving a
@@ -22,34 +21,34 @@ public final class FibonacciHeapTest {
 
   private Queue<Integer> queue;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     queue = new FibonacciHeap<Integer>();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     queue = null;
   }
 
   @Test
   public void emptyWhenCreated() {
-    assertThat(queue.isEmpty()).isEqualTo(true);
-    assertThat(queue.poll()).isEqualTo(null);
+    assertTrue(queue.isEmpty());
+    assertNull(queue.poll());
   }
 
   @Test
   public void noLongerEmptyAfterAdd() {
     queue.add(50);
 
-    assertThat(queue.isEmpty()).isFalse();
+    assertFalse(queue.isEmpty());
   }
 
   @Test
   public void singletonQueueReturnsSoleItemOnPoll() {
     queue.add(50);
 
-    assertThat(queue.poll()).isEqualTo(50);
+    assertEquals(50, queue.poll());
   }
 
   @Test
@@ -57,7 +56,7 @@ public final class FibonacciHeapTest {
     queue.add(50);
     queue.poll();
 
-    assertThat(queue.isEmpty()).isEqualTo(true);
+    assertTrue(queue.isEmpty());
   }
 
   @Test
@@ -65,17 +64,17 @@ public final class FibonacciHeapTest {
     queue.add(100);
     queue.add(50);
 
-    assertThat(queue.poll()).isEqualTo(50);
-    assertThat(queue.poll()).isEqualTo(100);
-    assertThat(queue.isEmpty()).isEqualTo(true);
+    assertEquals(50, queue.poll());
+    assertEquals(100, queue.poll());
+    assertTrue(queue.isEmpty());
   }
 
   @Test
   public void insertSingleItem() {
     queue.add(50);
 
-    assertThat(queue.poll()).isEqualTo(50);
-    assertThat(queue.isEmpty()).isEqualTo(true);
+    assertEquals(50, queue.poll());
+    assertTrue(queue.isEmpty());
   }
 
   @Test
@@ -84,10 +83,10 @@ public final class FibonacciHeapTest {
     queue.add(100);
     queue.add(50);
 
-    assertThat(queue.poll()).isEqualTo(50);
-    assertThat(queue.poll()).isEqualTo(50);
-    assertThat(queue.poll()).isEqualTo(100);
-    assertThat(queue.isEmpty()).isEqualTo(true);
+    assertEquals(50, queue.poll());
+    assertEquals(50, queue.poll());
+    assertEquals(100, queue.poll());
+    assertTrue(queue.isEmpty());
   }
 
   @Test
@@ -104,10 +103,10 @@ public final class FibonacciHeapTest {
 
     for (Integer integer : expected) {
       Integer i = queue.poll();
-      assertThat(i).isEqualTo(integer);
+      assertEquals(integer, i);
     }
 
-    assertThat(queue.isEmpty()).isEqualTo(true);
+    assertTrue(queue.isEmpty());
   }
 
   @Test
@@ -121,13 +120,13 @@ public final class FibonacciHeapTest {
 
     queue.addAll(c);
 
-    assertThat(queue.isEmpty()).isEqualTo(false);
-    assertThat(queue.containsAll(c)).isEqualTo(true);
+    assertFalse(queue.isEmpty());
+    assertTrue(queue.containsAll(c));
 
-    assertThat(queue.contains(100)).isEqualTo(true);
-    assertThat(queue.contains(21)).isEqualTo(true);
-    assertThat(queue.contains(50)).isEqualTo(true);
-    assertThat(queue.contains(20)).isEqualTo(true);
+    assertTrue(queue.contains(100));
+    assertTrue(queue.contains(21));
+    assertTrue(queue.contains(50));
+    assertTrue(queue.contains(20));
   }
 
   @Test
@@ -138,9 +137,9 @@ public final class FibonacciHeapTest {
       queue.add(number);
     }
 
-    assertThat(queue.isEmpty()).isEqualTo(false);
+    assertFalse(queue.isEmpty());
     queue.clear();
-    assertThat(queue.isEmpty()).isEqualTo(true);
+    assertTrue(queue.isEmpty());
   }
 
   @Test
@@ -150,15 +149,15 @@ public final class FibonacciHeapTest {
     queue.offer(20);
     queue.offer(21);
 
-    assertThat(queue.isEmpty()).isFalse();
+    assertFalse(queue.isEmpty());
     ;
-    assertThat(queue.peek()).isEqualTo(20);
-    assertThat(queue.element()).isEqualTo(20);
-    assertThat(queue.size()).isEqualTo(4);
+    assertEquals(20, queue.peek());
+    assertEquals(20, queue.element());
+    assertEquals(4, queue.size());
   }
 
-  @Test(expected = NoSuchElementException.class)
+  @Test
   public void elementThrowsException() {
-    queue.element();
+    assertThrows(NoSuchElementException.class, () -> queue.element());
   }
 }

@@ -4,17 +4,17 @@
  */
 package com.williamfiset.algorithms.datastructures.segmenttree;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.williamfiset.algorithms.utils.TestUtils;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.*;
 
 public class SumQueryAssignUpdateSegmentTreeTest {
 
   static int ITERATIONS = 100;
 
-  @Before
+  @BeforeEach
   public void setup() {}
 
   @Test
@@ -24,30 +24,30 @@ public class SumQueryAssignUpdateSegmentTreeTest {
 
     st.rangeUpdate1(3, 4, 2);
 
-    assertThat(st.rangeQuery1(0, 4)).isEqualTo(10);
-    assertThat(st.rangeQuery1(3, 4)).isEqualTo(4);
-    assertThat(st.rangeQuery1(3, 3)).isEqualTo(2);
-    assertThat(st.rangeQuery1(4, 4)).isEqualTo(2);
+    assertEquals(10, st.rangeQuery1(0, 4));
+    assertEquals(4, st.rangeQuery1(3, 4));
+    assertEquals(2, st.rangeQuery1(3, 3));
+    assertEquals(2, st.rangeQuery1(4, 4));
 
     st.rangeUpdate1(1, 3, 4);
 
-    assertThat(st.rangeQuery1(0, 4)).isEqualTo(16);
-    assertThat(st.rangeQuery1(0, 1)).isEqualTo(6);
-    assertThat(st.rangeQuery1(3, 4)).isEqualTo(6);
-    assertThat(st.rangeQuery1(1, 1)).isEqualTo(4);
-    assertThat(st.rangeQuery1(2, 2)).isEqualTo(4);
-    assertThat(st.rangeQuery1(3, 3)).isEqualTo(4);
-    assertThat(st.rangeQuery1(1, 3)).isEqualTo(12);
-    assertThat(st.rangeQuery1(2, 3)).isEqualTo(8);
-    assertThat(st.rangeQuery1(1, 2)).isEqualTo(8);
+    assertEquals(16, st.rangeQuery1(0, 4));
+    assertEquals(6, st.rangeQuery1(0, 1));
+    assertEquals(6, st.rangeQuery1(3, 4));
+    assertEquals(4, st.rangeQuery1(1, 1));
+    assertEquals(4, st.rangeQuery1(2, 2));
+    assertEquals(4, st.rangeQuery1(3, 3));
+    assertEquals(12, st.rangeQuery1(1, 3));
+    assertEquals(8, st.rangeQuery1(2, 3));
+    assertEquals(8, st.rangeQuery1(1, 2));
 
     st.rangeUpdate1(2, 2, 5);
 
-    assertThat(st.rangeQuery1(0, 4)).isEqualTo(17);
-    assertThat(st.rangeQuery1(0, 2)).isEqualTo(11);
-    assertThat(st.rangeQuery1(2, 4)).isEqualTo(11);
-    assertThat(st.rangeQuery1(1, 3)).isEqualTo(13);
-    assertThat(st.rangeQuery1(2, 2)).isEqualTo(5);
+    assertEquals(17, st.rangeQuery1(0, 4));
+    assertEquals(11, st.rangeQuery1(0, 2));
+    assertEquals(11, st.rangeQuery1(2, 4));
+    assertEquals(13, st.rangeQuery1(1, 3));
+    assertEquals(5, st.rangeQuery1(2, 2));
   }
 
   @Test
@@ -66,7 +66,7 @@ public class SumQueryAssignUpdateSegmentTreeTest {
         // Range query
         long bfSum = bruteForceSum(ar, i1, i2);
         long segTreeSum = st.rangeQuery1(i1, i2);
-        assertThat(bfSum).isEqualTo(segTreeSum);
+        assertEquals(bfSum, segTreeSum);
 
         // Range update
         j = TestUtils.randValue(0, n - 1);

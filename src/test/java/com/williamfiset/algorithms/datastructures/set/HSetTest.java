@@ -1,13 +1,14 @@
 package com.williamfiset.algorithms.datastructures.set;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import org.junit.*;
+
+import org.junit.jupiter.api.*;
 
 // You can set the hash value of this object to be whatever you want
 // This makes it great for testing special cases.
@@ -40,7 +41,7 @@ public class HSetTest {
 
   HSet<Integer> hs;
 
-  @Before
+  @BeforeEach
   public void setup() {
     hs = new HSet<>();
   }
@@ -48,17 +49,17 @@ public class HSetTest {
   @Test
   public void testAddRemove() {
     hs.add(5);
-    assertThat(hs.size()).isEqualTo(1);
+    assertEquals(1, hs.size());
     hs.remove(5);
-    assertThat(hs.size()).isEqualTo(0);
+    assertEquals(0, hs.size());
     hs.add(0);
-    assertThat(hs.size()).isEqualTo(1);
+    assertEquals(1, hs.size());
     hs.remove(0);
-    assertThat(hs.size()).isEqualTo(0);
+    assertEquals(0, hs.size());
     hs.add(-5);
-    assertThat(hs.size()).isEqualTo(1);
+    assertEquals(1, hs.size());
     hs.remove(-5);
-    assertThat(hs.size()).isEqualTo(0);
+    assertEquals(0, hs.size());
   }
 
   @Test
@@ -81,7 +82,7 @@ public class HSetTest {
         for (Integer n : s) hs.contains(n);
         for (Integer n : hs) s.contains(n);
 
-        assertThat(s.size()).isEqualTo(hs.size());
+        assertEquals(s.size(), hs.size());
       }
     }
   }
@@ -103,7 +104,7 @@ public class HSetTest {
 
         int num = nums.get(i);
         ConstObj obj = new ConstObj(java.util.Objects.hash(num), num);
-        // assertThat(hs.add(num)).isEqualTo(s.add(num));
+        // assertEquals(s.add(num), hs.add(num));
         hs.add(obj);
         s.add(obj);
 
@@ -111,7 +112,7 @@ public class HSetTest {
         for (ConstObj n : s) hs.contains(n);
         for (ConstObj n : hs) s.contains(n);
 
-        assertThat(s.size()).isEqualTo(hs.size());
+        assertEquals(s.size(), hs.size());
       }
     }
   }
@@ -125,13 +126,13 @@ public class HSetTest {
     HSet<ConstObj> s = new HSet<ConstObj>();
 
     s.add(ch1);
-    assertThat(s.size()).isEqualTo(1);
+    assertEquals(1, s.size());
     s.remove(ch1);
-    assertThat(s.size()).isEqualTo(0);
+    assertEquals(0, s.size());
     s.add(ch2);
-    assertThat(s.size()).isEqualTo(1);
+    assertEquals(1, s.size());
     s.remove(ch2);
-    assertThat(s.size()).isEqualTo(0);
+    assertEquals(0, s.size());
   }
 
   // Generate a list of random numbers

@@ -4,17 +4,17 @@
  */
 package com.williamfiset.algorithms.datastructures.segmenttree;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.williamfiset.algorithms.utils.TestUtils;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.*;
 
 public class MinQueryAssignUpdateSegmentTreeTest {
 
   static int ITERATIONS = 500;
 
-  @Before
+  @BeforeEach
   public void setup() {}
 
   @Test
@@ -33,7 +33,7 @@ public class MinQueryAssignUpdateSegmentTreeTest {
         // Range query
         long bfMin = bruteForceMin(ar, i1, i2);
         long segTreeMin = st.rangeQuery1(i1, i2);
-        assertThat(bfMin).isEqualTo(segTreeMin);
+        assertEquals(bfMin, segTreeMin);
 
         // Range update
         j = TestUtils.randValue(0, n - 1);
@@ -63,7 +63,7 @@ public class MinQueryAssignUpdateSegmentTreeTest {
   //       // Range query
   //       long bfMin = bruteForceMin(ar, i1, i2);
   //       long segTreeMin = st.rangeQuery2(i1, i2);
-  //       assertThat(bfMin).isEqualTo(segTreeMin);
+  //       assertEquals(bfMin, segTreeMin);
 
   //       // Range update
   //       j = TestUtils.randValue(0, n - 1);

@@ -1,13 +1,13 @@
 package com.williamfiset.algorithms.datastructures.balancedtree;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.TreeSet;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.*;
 
 public class TreapTreeTest {
 
@@ -18,19 +18,19 @@ public class TreapTreeTest {
 
   private TreapTree<Integer> tree;
 
-  @Before
+  @BeforeEach
   public void setup() {
     tree = new TreapTree<>();
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testNullInsertion() {
-    tree.insert(null);
+    assertThrows(IllegalArgumentException.class, () -> tree.insert(null));
   }
 
   @Test
   public void testTreeContainsNull() {
-    assertThat(tree.contains(null)).isFalse();
+    assertFalse(tree.contains(null));
   }
 
   @Test
@@ -40,25 +40,25 @@ public class TreapTreeTest {
     tree.insert(20, 10);
     tree.insert(30, 9);
 
-    assertThat(tree.root.left.getValue()).isEqualTo(10);
-    assertThat(tree.root.getValue()).isEqualTo(15);
-    assertThat(tree.root.right.getValue()).isEqualTo(20);
-    assertThat(tree.root.right.right.getValue()).isEqualTo(30);
+    assertEquals(10, tree.root.left.getValue());
+    assertEquals(15, tree.root.getValue());
+    assertEquals(20, tree.root.right.getValue());
+    assertEquals(30, tree.root.right.right.getValue());
 
     tree.insert(32, 14);
 
-    assertThat(tree.root.left.getValue()).isEqualTo(10);
-    assertThat(tree.root.getValue()).isEqualTo(15);
-    assertThat(tree.root.right.getValue()).isEqualTo(32);
-    assertThat(tree.root.right.left.getValue()).isEqualTo(20);
-    assertThat(tree.root.right.left.right.getValue()).isEqualTo(30);
+    assertEquals(10, tree.root.left.getValue());
+    assertEquals(15, tree.root.getValue());
+    assertEquals(32, tree.root.right.getValue());
+    assertEquals(20, tree.root.right.left.getValue());
+    assertEquals(30, tree.root.right.left.right.getValue());
 
-    assertThat(tree.root.right.left.right.left).isNull();
-    assertThat(tree.root.right.left.right.right).isNull();
-    assertThat(tree.root.right.left.left).isNull();
-    assertThat(tree.root.right.right).isNull();
-    assertThat(tree.root.left.left).isNull();
-    assertThat(tree.root.left.right).isNull();
+    assertNull(tree.root.right.left.right.left);
+    assertNull(tree.root.right.left.right.right);
+    assertNull(tree.root.right.left.left);
+    assertNull(tree.root.right.right);
+    assertNull(tree.root.left.left);
+    assertNull(tree.root.left.right);
   }
 
   @Test
@@ -67,21 +67,21 @@ public class TreapTreeTest {
     tree.insert(17, 5);
     tree.insert(26, 7);
 
-    assertThat(tree.root.getValue()).isEqualTo(20);
-    assertThat(tree.root.left.getValue()).isEqualTo(17);
-    assertThat(tree.root.right.getValue()).isEqualTo(26);
+    assertEquals(20, tree.root.getValue());
+    assertEquals(17, tree.root.left.getValue());
+    assertEquals(26, tree.root.right.getValue());
 
     tree.insert(18, 15);
-    assertThat(tree.root.getValue()).isEqualTo(18);
-    assertThat(tree.root.left.getValue()).isEqualTo(17);
-    assertThat(tree.root.right.getValue()).isEqualTo(20);
-    assertThat(tree.root.right.right.getValue()).isEqualTo(26);
+    assertEquals(18, tree.root.getValue());
+    assertEquals(17, tree.root.left.getValue());
+    assertEquals(20, tree.root.right.getValue());
+    assertEquals(26, tree.root.right.right.getValue());
 
-    assertThat(tree.root.left.left).isNull();
-    assertThat(tree.root.left.right).isNull();
-    assertThat(tree.root.right.left).isNull();
-    assertThat(tree.root.right.right.left).isNull();
-    assertThat(tree.root.right.right.right).isNull();
+    assertNull(tree.root.left.left);
+    assertNull(tree.root.left.right);
+    assertNull(tree.root.right.left);
+    assertNull(tree.root.right.right.left);
+    assertNull(tree.root.right.right.right);
   }
 
   @Test
@@ -89,19 +89,19 @@ public class TreapTreeTest {
     tree.insert(10, 2);
     tree.insert(8, 1);
 
-    assertThat(tree.root.getValue()).isEqualTo(10);
-    assertThat(tree.root.left.getValue()).isEqualTo(8);
+    assertEquals(10, tree.root.getValue());
+    assertEquals(8, tree.root.left.getValue());
 
     tree.insert(7, 3);
 
-    assertThat(tree.root.getValue()).isEqualTo(7);
-    assertThat(tree.root.right.getValue()).isEqualTo(10);
-    assertThat(tree.root.right.left.getValue()).isEqualTo(8);
+    assertEquals(7, tree.root.getValue());
+    assertEquals(10, tree.root.right.getValue());
+    assertEquals(8, tree.root.right.left.getValue());
 
-    assertThat(tree.root.left).isNull();
-    assertThat(tree.root.right.right).isNull();
-    assertThat(tree.root.right.left.right).isNull();
-    assertThat(tree.root.right.left.left).isNull();
+    assertNull(tree.root.left);
+    assertNull(tree.root.right.right);
+    assertNull(tree.root.right.left.right);
+    assertNull(tree.root.right.left.left);
   }
 
   @Test
@@ -109,19 +109,19 @@ public class TreapTreeTest {
     tree.insert(15, 10);
     tree.insert(16, 8);
 
-    assertThat(tree.root.getValue()).isEqualTo(15);
-    assertThat(tree.root.right.getValue()).isEqualTo(16);
+    assertEquals(15, tree.root.getValue());
+    assertEquals(16, tree.root.right.getValue());
 
     tree.insert(13, 11);
 
-    assertThat(tree.root.getValue()).isEqualTo(13);
-    assertThat(tree.root.right.getValue()).isEqualTo(15);
-    assertThat(tree.root.right.right.getValue()).isEqualTo(16);
+    assertEquals(13, tree.root.getValue());
+    assertEquals(15, tree.root.right.getValue());
+    assertEquals(16, tree.root.right.right.getValue());
 
-    assertThat(tree.root.left).isNull();
-    assertThat(tree.root.right.left).isNull();
-    assertThat(tree.root.right.right.left).isNull();
-    assertThat(tree.root.right.right.right).isNull();
+    assertNull(tree.root.left);
+    assertNull(tree.root.right.left);
+    assertNull(tree.root.right.right.left);
+    assertNull(tree.root.right.right.right);
   }
 
   @Test
@@ -142,12 +142,12 @@ public class TreapTreeTest {
 
         Integer value = lst.get(j);
 
-        assertThat(tree.remove(value)).isEqualTo(ts.remove(value));
-        assertThat(tree.contains(value)).isFalse();
-        assertThat(tree.size()).isEqualTo(size - j - 1);
+        assertEquals(ts.remove(value), tree.remove(value));
+        assertFalse(tree.contains(value));
+        assertEquals(size - j - 1, tree.size());
       }
 
-      assertThat(tree.isEmpty()).isTrue();
+      assertTrue(tree.isEmpty());
     }
   }
 

@@ -1,6 +1,6 @@
 package com.williamfiset.algorithms.datastructures.priorityqueue;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,47 +9,50 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Random;
-import org.junit.*;
+
+import org.junit.jupiter.api.*;
 
 public class MinIndexedBinaryHeapTest {
 
-  @Before
+  @BeforeEach
   public void setup() {}
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testIllegalSizeOfNegativeOne() {
-    new MinIndexedBinaryHeap<String>(-1);
+    assertThrows(IllegalArgumentException.class, () -> new MinIndexedBinaryHeap<String>(-1));
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testIllegalSizeOfZero() {
-    new MinIndexedBinaryHeap<String>(0);
+    assertThrows(IllegalArgumentException.class, () -> new MinIndexedBinaryHeap<String>(0));
   }
 
   @Test
   public void testLegalSize() {
-    new MinIndexedBinaryHeap<String>(1);
+    assertDoesNotThrow(() -> new MinIndexedBinaryHeap<String>(1));
   }
 
   @Test
   public void testContainsValidKey() {
     MinIndexedBinaryHeap<String> pq = new MinIndexedBinaryHeap<String>(10);
     pq.insert(5, "abcdef");
-    assertThat(pq.contains(5)).isTrue();
+    assertTrue(pq.contains(5));
   }
 
   @Test
   public void testContainsInvalidKey() {
     MinIndexedBinaryHeap<String> pq = new MinIndexedBinaryHeap<String>(10);
     pq.insert(5, "abcdef");
-    assertThat(pq.contains(3)).isFalse();
+    assertFalse(pq.contains(3));
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testDuplicateKeys() {
-    MinIndexedBinaryHeap<String> pq = new MinIndexedBinaryHeap<String>(10);
-    pq.insert(5, "abcdef");
-    pq.insert(5, "xyz");
+    assertThrows(IllegalArgumentException.class, () -> {
+      MinIndexedBinaryHeap<String> pq = new MinIndexedBinaryHeap<String>(10);
+      pq.insert(5, "abcdef");
+      pq.insert(5, "xyz");
+    });
   }
 
   @Test
@@ -57,7 +60,7 @@ public class MinIndexedBinaryHeapTest {
     MinIndexedBinaryHeap<String> pq = new MinIndexedBinaryHeap<String>(10);
     pq.insert(5, "abcdef");
     pq.update(5, "xyz");
-    assertThat(pq.valueOf(5)).isEqualTo("xyz");
+    assertEquals("xyz", pq.valueOf(5));
   }
 
   @Test
@@ -65,7 +68,7 @@ public class MinIndexedBinaryHeapTest {
     MinIndexedBinaryHeap<Integer> pq = new MinIndexedBinaryHeap<Integer>(10);
     pq.insert(3, 5);
     pq.decrease(3, 4);
-    assertThat(pq.valueOf(3)).isEqualTo(4);
+    assertEquals(4, pq.valueOf(3));
   }
 
   @Test
@@ -73,7 +76,7 @@ public class MinIndexedBinaryHeapTest {
     MinIndexedBinaryHeap<Integer> pq = new MinIndexedBinaryHeap<Integer>(10);
     pq.insert(3, 5);
     pq.decrease(3, 6);
-    assertThat(pq.valueOf(3)).isEqualTo(5);
+    assertEquals(5, pq.valueOf(3));
   }
 
   @Test
@@ -81,7 +84,7 @@ public class MinIndexedBinaryHeapTest {
     MinIndexedBinaryHeap<Integer> pq = new MinIndexedBinaryHeap<Integer>(10);
     pq.insert(3, 5);
     pq.increase(3, 6);
-    assertThat(pq.valueOf(3)).isEqualTo(6);
+    assertEquals(6, pq.valueOf(3));
   }
 
   @Test
@@ -89,7 +92,7 @@ public class MinIndexedBinaryHeapTest {
     MinIndexedBinaryHeap<Integer> pq = new MinIndexedBinaryHeap<Integer>(10);
     pq.insert(3, 5);
     pq.increase(3, 4);
-    assertThat(pq.valueOf(3)).isEqualTo(5);
+    assertEquals(5, pq.valueOf(3));
   }
 
   @Test
@@ -117,9 +120,9 @@ public class MinIndexedBinaryHeapTest {
     Integer minIndex;
     for (int i = 0; i < n; i++) {
       minIndex = pq.peekMinKeyIndex();
-      assertThat(minIndex).isEqualTo(pairs[i][0]);
+      assertEquals(pairs[i][0], minIndex);
       minIndex = pq.pollMinKeyIndex();
-      assertThat(minIndex).isEqualTo(pairs[i][0]);
+      assertEquals(pairs[i][0], minIndex);
     }
   }
 
@@ -147,11 +150,11 @@ public class MinIndexedBinaryHeapTest {
 
     Integer minValue;
     for (int i = 0; i < n; i++) {
-      assertThat(pq.valueOf(pairs[i][0])).isEqualTo(pairs[i][1]);
+      assertEquals(pairs[i][1], pq.valueOf(pairs[i][0]));
       minValue = pq.peekMinValue();
-      assertThat(minValue).isEqualTo(pairs[i][1]);
+      assertEquals(pairs[i][1], minValue);
       minValue = pq.pollMinValue();
-      assertThat(minValue).isEqualTo(pairs[i][1]);
+      assertEquals(pairs[i][1], minValue);
     }
   }
 
@@ -160,7 +163,7 @@ public class MinIndexedBinaryHeapTest {
     String[] names = {"jackie", "wilson", "catherine", "jason", "bobby", "sia"};
     MinIndexedBinaryHeap<String> pq = new MinIndexedBinaryHeap<String>(names.length);
     for (int i = 0; i < names.length; i++) pq.insert(i, names[i]);
-    for (int i = 0; i < names.length; i++) assertThat(pq.valueOf(i)).isEqualTo(names[i]);
+    for (int i = 0; i < names.length; i++) assertEquals(names[i], pq.valueOf(i));
   }
 
   @Test
@@ -169,33 +172,33 @@ public class MinIndexedBinaryHeapTest {
     MinIndexedBinaryHeap<Integer> pq = new MinIndexedBinaryHeap<Integer>(n);
 
     pq.insert(4, 4);
-    assertThat(pq.contains(4)).isTrue();
-    assertThat(pq.peekMinValue()).isEqualTo(4);
-    assertThat(pq.peekMinKeyIndex()).isEqualTo(4);
+    assertTrue(pq.contains(4));
+    assertEquals(4, pq.peekMinValue());
+    assertEquals(4, pq.peekMinKeyIndex());
     pq.update(4, 8);
-    assertThat(pq.peekMinValue()).isEqualTo(8);
-    assertThat(pq.pollMinKeyIndex()).isEqualTo(4);
-    assertThat(pq.contains(4)).isFalse();
+    assertEquals(8, pq.peekMinValue());
+    assertEquals(4, pq.pollMinKeyIndex());
+    assertFalse(pq.contains(4));
     pq.insert(3, 99);
     pq.insert(1, 101);
     pq.insert(2, 60);
-    assertThat(pq.peekMinValue()).isEqualTo(60);
-    assertThat(pq.peekMinKeyIndex()).isEqualTo(2);
+    assertEquals(60, pq.peekMinValue());
+    assertEquals(2, pq.peekMinKeyIndex());
     pq.increase(2, 150);
-    assertThat(pq.peekMinValue()).isEqualTo(99);
-    assertThat(pq.peekMinKeyIndex()).isEqualTo(3);
+    assertEquals(99, pq.peekMinValue());
+    assertEquals(3, pq.peekMinKeyIndex());
     pq.increase(3, 250);
-    assertThat(pq.peekMinValue()).isEqualTo(101);
-    assertThat(pq.peekMinKeyIndex()).isEqualTo(1);
+    assertEquals(101, pq.peekMinValue());
+    assertEquals(1, pq.peekMinKeyIndex());
     pq.decrease(3, -500);
-    assertThat(pq.peekMinValue()).isEqualTo(-500);
-    assertThat(pq.peekMinKeyIndex()).isEqualTo(3);
-    assertThat(pq.contains(3)).isTrue();
+    assertEquals(-500, pq.peekMinValue());
+    assertEquals(3, pq.peekMinKeyIndex());
+    assertTrue(pq.contains(3));
     pq.delete(3);
-    assertThat(pq.contains(3)).isFalse();
-    assertThat(pq.peekMinValue()).isEqualTo(101);
-    assertThat(pq.peekMinKeyIndex()).isEqualTo(1);
-    assertThat(pq.valueOf(1)).isEqualTo(101);
+    assertFalse(pq.contains(3));
+    assertEquals(101, pq.peekMinValue());
+    assertEquals(1, pq.peekMinKeyIndex());
+    assertEquals(101, pq.valueOf(1));
   }
 
   @Test
@@ -214,13 +217,13 @@ public class MinIndexedBinaryHeapTest {
 
         if (Math.random() < p) {
           if (!pq2.isEmpty()) {
-            assertThat(pq1.pollMinValue()).isEqualTo(pq2.poll());
+            assertEquals(pq2.poll(), pq1.pollMinValue());
           }
         }
 
-        assertThat(pq1.size()).isEqualTo(pq2.size());
-        assertThat(pq1.isEmpty()).isEqualTo(pq2.isEmpty());
-        if (!pq2.isEmpty()) assertThat(pq1.peekMinValue()).isEqualTo(pq2.peek());
+        assertEquals(pq2.size(), pq1.size());
+        assertEquals(pq2.isEmpty(), pq1.isEmpty());
+        if (!pq2.isEmpty()) assertEquals(pq2.peek(), pq1.peekMinValue());
       }
     }
   }
@@ -239,7 +242,7 @@ public class MinIndexedBinaryHeapTest {
         pq1.insert(ii, ii);
         pq2.add(ii);
         indexesToRemove.add(ii);
-        assertThat(pq1.isMinHeap()).isTrue();
+        assertTrue(pq1.isMinHeap());
 
         if (Math.random() < p) {
           int itemsToRemove = (int) (Math.random() * 10);
@@ -248,25 +251,25 @@ public class MinIndexedBinaryHeapTest {
             int indexToRemove = indexesToRemove.get(iii);
             boolean contains1 = pq1.contains(indexToRemove);
             boolean contains2 = pq2.contains(indexToRemove);
-            assertThat(contains1).isEqualTo(contains2);
-            assertThat(pq1.isMinHeap()).isTrue();
+            assertEquals(contains2, contains1);
+            assertTrue(pq1.isMinHeap());
             if (contains2) {
               pq1.delete(indexToRemove);
               pq2.remove(indexToRemove);
               indexesToRemove.remove(iii);
             }
-            if (!pq2.isEmpty()) assertThat(pq1.peekMinValue()).isEqualTo(pq2.peek());
+            if (!pq2.isEmpty()) assertEquals(pq2.peek(), pq1.peekMinValue());
           }
         }
 
         for (int index : indexesToRemove) {
-          assertThat(pq2.contains(index)).isTrue(); // Sanity check.
-          assertThat(pq1.contains(index)).isTrue();
+          assertTrue(pq2.contains(index)); // Sanity check.
+          assertTrue(pq1.contains(index));
         }
 
-        assertThat(pq1.size()).isEqualTo(pq2.size());
-        assertThat(pq1.isEmpty()).isEqualTo(pq2.isEmpty());
-        if (!pq2.isEmpty()) assertThat(pq1.peekMinValue()).isEqualTo(pq2.peek());
+        assertEquals(pq2.size(), pq1.size());
+        assertEquals(pq2.isEmpty(), pq1.isEmpty());
+        if (!pq2.isEmpty()) assertEquals(pq2.peek(), pq1.peekMinValue());
       }
     }
   }

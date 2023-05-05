@@ -2,26 +2,30 @@
 // "com.williamfiset.algorithms.datastructures.segmenttree.SegmentTreeWithPointersTest"
 package com.williamfiset.algorithms.datastructures.segmenttree;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.williamfiset.algorithms.utils.TestUtils;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.*;
 
 public class SegmentTreeWithPointersTest {
 
-  @Before
+  @BeforeEach
   public void setup() {}
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testIllegalSegmentTreeCreation1() {
-    Node tree = new Node(null);
+    assertThrows(IllegalArgumentException.class, () -> {
+      Node tree = new Node(null);
+    });
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testIllegalSegmentTreeCreation2() {
-    int size = -10;
-    Node tree = new Node(size);
+    assertThrows(IllegalArgumentException.class, () -> {
+      int size = -10;
+      Node tree = new Node(size);
+    });
   }
 
   @Test
@@ -29,11 +33,11 @@ public class SegmentTreeWithPointersTest {
     int[] values = {1, 2, 3, 4, 5};
     Node tree = new Node(values);
 
-    assertThat(tree.sum(0, 1)).isEqualTo(1);
-    assertThat(tree.sum(1, 2)).isEqualTo(2);
-    assertThat(tree.sum(2, 3)).isEqualTo(3);
-    assertThat(tree.sum(3, 4)).isEqualTo(4);
-    assertThat(tree.sum(4, 5)).isEqualTo(5);
+    assertEquals(1, tree.sum(0, 1));
+    assertEquals(2, tree.sum(1, 2));
+    assertEquals(3, tree.sum(2, 3));
+    assertEquals(4, tree.sum(3, 4));
+    assertEquals(5, tree.sum(4, 5));
   }
 
   @Test
@@ -46,7 +50,7 @@ public class SegmentTreeWithPointersTest {
       for (int j = i + 1; j < n; j++) {
         long bfSum = bruteForceSum(ar, i, j);
         long segTreeSum = tree.sum(i, j);
-        assertThat(bfSum).isEqualTo(segTreeSum);
+        assertEquals(bfSum, segTreeSum);
       }
     }
   }

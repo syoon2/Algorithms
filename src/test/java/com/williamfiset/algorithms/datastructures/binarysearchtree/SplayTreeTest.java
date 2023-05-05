@@ -1,10 +1,11 @@
 package com.williamfiset.algorithms.datastructures.binarysearchtree;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.williamfiset.algorithms.datastructures.utils.TestUtils;
 import java.util.*;
-import org.junit.Test;
+
+import org.junit.jupiter.api.*;
 
 public class SplayTreeTest {
 
@@ -16,7 +17,7 @@ public class SplayTreeTest {
     List<Integer> data = TestUtils.randomIntegerList(100, MIN, MAX);
     for (int i : data) {
       splayTree.insert(i);
-      assertThat(splayTree.getRoot().getData()).isEqualTo(i);
+      assertEquals(i, splayTree.getRoot().getData());
     }
   }
 
@@ -29,14 +30,14 @@ public class SplayTreeTest {
     // should assertNull
     for (int i : data) {
       splayTree.insert(i);
-      assertThat(splayTree.getRoot().getData()).isEqualTo(i);
+      assertEquals(i, splayTree.getRoot().getData());
     }
     for (int i : data) {
-      assertThat(splayTree.search(i)).isNotNull();
+      assertNotNull(splayTree.search(i));
     }
     for (int i : data) {
       splayTree.delete(i);
-      assertThat(splayTree.search(i)).isNull();
+      assertNull(splayTree.search(i));
     }
   }
 
@@ -46,7 +47,7 @@ public class SplayTreeTest {
     List<Integer> data = TestUtils.randomIntegerList(100, MIN, MAX);
     for (int i : data) {
       splayTree.insert(i);
-      assertThat(splayTree.getRoot().getData()).isEqualTo(i);
+      assertEquals(i, splayTree.getRoot().getData());
     }
   }
 
@@ -56,7 +57,7 @@ public class SplayTreeTest {
     List<Integer> data = TestUtils.sortedIntegerList(-50, 50);
     for (int i : data) {
       splayTree.insert(i);
-      assertThat(splayTree.findMax(splayTree.getRoot())).isEqualTo(i);
+      assertEquals(i, splayTree.findMax(splayTree.getRoot()));
     }
   }
 
@@ -69,21 +70,21 @@ public class SplayTreeTest {
 
     // insertion
     for (int i : data) {
-      assertThat(pq.add(i)).isEqualTo(splayTree.insert(i) != null);
+      assertEquals(pq.add(i), splayTree.insert(i) != null);
     }
     // searching
     for (int i : data) {
-      assertThat(splayTree.search(i).getData().equals(i)).isEqualTo(pq.contains(i));
+      assertEquals(pq.contains(i), splayTree.search(i).getData().equals(i));
     }
     // findMax & delete
     while (!pq.isEmpty()) {
       Integer splayTreeMax = splayTree.findMax();
-      assertThat(pq.peek()).isEqualTo(splayTreeMax);
+      assertEquals(pq.peek(), splayTreeMax);
 
       splayTree.delete(splayTreeMax);
-      assertThat(splayTree.search(splayTreeMax)).isNull();
+      assertNull(splayTree.search(splayTreeMax));
       pq.remove(splayTreeMax);
-      assertThat(pq.contains(splayTreeMax)).isFalse();
+      assertFalse(pq.contains(splayTreeMax));
     }
   }
 }

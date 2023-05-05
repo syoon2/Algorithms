@@ -1,13 +1,13 @@
 package com.williamfiset.algorithms.datastructures.bloomfilter;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.security.SecureRandom;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.*;
 
 public class BloomFilterTest {
 
@@ -20,7 +20,7 @@ public class BloomFilterTest {
   static final int TEST_SZ = 1000;
   static final int LOOPS = 1000;
 
-  @Before
+  @BeforeEach
   public void setup() {}
 
   @Test
@@ -33,7 +33,7 @@ public class BloomFilterTest {
     for (int i = 0; i < s.length(); i++) {
       for (int j = i + 1; j < s.length(); j++) {
         String sub = s.substring(i, j + 1);
-        assertThat(set.contains(sub)).isTrue();
+        assertTrue(set.contains(sub));
       }
     }
   }
@@ -67,7 +67,7 @@ public class BloomFilterTest {
 
     // The probablity of a collision should be really high
     // because we're using small prime numbers
-    assertThat(collisionHappened).isTrue();
+    assertTrue(collisionHappened);
   }
 
   @Test
@@ -86,7 +86,7 @@ public class BloomFilterTest {
           set.add(randStr);
         }
 
-        for (String s : javaset) assertThat(set.contains(s)).isTrue();
+        for (String s : javaset) assertTrue(set.contains(s));
 
         // Check that strings that aren't in the string set actually aren't
         // in the set, the probablity should be low enough that a false positive
@@ -94,7 +94,7 @@ public class BloomFilterTest {
         for (int l = 0; l < 100; l++) {
           String randStr = randomString(sz);
           if (!randStr.contains(randStr)) {
-            assertThat(set.contains(randStr)).isFalse();
+            assertFalse(set.contains(randStr));
           }
         }
       }

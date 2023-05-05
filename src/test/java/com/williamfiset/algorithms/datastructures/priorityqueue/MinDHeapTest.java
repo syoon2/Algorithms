@@ -1,29 +1,29 @@
 package com.williamfiset.algorithms.datastructures.priorityqueue;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.*;
 
 public class MinDHeapTest {
 
   static final int LOOPS = 1000;
   static final int MAX_SZ = 100;
 
-  @Before
+  @BeforeEach
   public void setup() {}
 
   @Test
   public void testEmpty() {
     MinDHeap<Integer> q = new MinDHeap<>(4, 0);
-    assertThat(q.size()).isEqualTo(0);
-    assertThat(q.isEmpty()).isTrue();
-    assertThat(q.poll()).isNull();
-    assertThat(q.peek()).isNull();
+    assertEquals(0, q.size());
+    assertTrue(q.isEmpty());
+    assertNull(q.poll());
+    assertNull(q.peek());
   }
 
   @Test
@@ -34,7 +34,7 @@ public class MinDHeapTest {
 
     // Try manually creating heap
     for (int n : nums) q.add(n);
-    for (int i = 1; i <= 9; i++) assertThat(q.poll()).isEqualTo(i);
+    for (int i = 1; i <= 9; i++) assertEquals(i, q.poll());
   }
 
   @Test
@@ -50,7 +50,7 @@ public class MinDHeapTest {
         pq2.add(x);
         pq.add(x);
       }
-      while (!pq2.isEmpty()) assertThat(pq.poll()).isEqualTo(pq2.poll());
+      while (!pq2.isEmpty()) assertEquals(pq2.poll(), pq.poll());
     }
   }
 
@@ -78,14 +78,14 @@ public class MinDHeapTest {
           pq.add(e);
           pq2.add(e);
         } else if (p1 < r && r <= p2) {
-          if (!pq2.isEmpty()) assertThat(pq.poll()).isEqualTo(pq2.poll());
+          if (!pq2.isEmpty()) assertEquals(pq2.poll(), pq.poll());
         } else {
           pq.clear();
           pq2.clear();
         }
       }
 
-      assertThat(pq.peek()).isEqualTo(pq2.peek());
+      assertEquals(pq2.peek(), pq.peek());
     }
   }
 
@@ -95,8 +95,8 @@ public class MinDHeapTest {
     MinDHeap<String> q = new MinDHeap<>(2, strs.length);
     for (String s : strs) q.add(s);
     q.clear();
-    assertThat(q.size()).isEqualTo(0);
-    assertThat(q.isEmpty()).isTrue();
+    assertEquals(0, q.size());
+    assertTrue(q.isEmpty());
   }
 
   /*
@@ -116,9 +116,9 @@ public class MinDHeapTest {
       for (int j = 0; j < randNums.size(); j++) {
 
         int randVal = randNums.get(j);
-        assertThat( pq.contains(randVal)).isEqualTo(PQ.contains(randVal) );
+        assertEquals(PQ.contains(randVal), pq.contains(randVal));
         pq.remove(randVal); PQ.remove(randVal);
-        assertThat( pq.contains(randVal)).isEqualTo(PQ.contains(randVal) );
+        assertEquals(PQ.contains(randVal), pq.contains(randVal));
 
       }
 
@@ -128,26 +128,26 @@ public class MinDHeapTest {
 
   public void sequentialRemoving(Integer[] in, Integer[] removeOrder) {
 
-    assertThat(in.length, removeOrder.length);
+    assertEquals(in.length, removeOrder.length);
 
     PQueue <Integer> pq = new PQueue<>(in);
     PriorityQueue <Integer> PQ = new PriorityQueue<>();
     for (int value : in) PQ.offer(value);
 
-    assertThat(pq.isMinHeap(0)).isTrue();
+    assertTrue(pq.isMinHeap(0));
 
     for (int i = 0; i < removeOrder.length; i++) {
 
       int elem = removeOrder[i];
 
-      assertThat(pq.peek()).isEqualTo(PQ.peek());
-      assertThat( pq.remove(elem)).isEqualTo(PQ.remove(elem));
-      assertThat(pq.size()).isEqualTo(PQ.size());
-      assertThat(pq.isMinHeap(0)).isTrue();
+      assertEquals(PQ.peek(), pq.peek());
+      assertEquals(PQ.remove(elem), pq.remove(elem));
+      assertEquals(PQ.size(), pq.size());
+      assertTrue(pq.isMinHeap(0));
 
     }
 
-    assertThat(pq.isEmpty()).isTrue();
+    assertTrue(pq.isEmpty());
 
   }
 
@@ -184,17 +184,17 @@ public class MinDHeapTest {
     MinDHeap<Integer> pq = new MinDHeap<>(3, in.length + 1);
 
     for (Integer x : in) pq.add(x);
-    assertThat(pq.peek()).isEqualTo(2);
+    assertEquals(2, pq.peek());
     pq.add(3);
 
-    assertThat(pq.poll()).isEqualTo(2);
-    assertThat(pq.poll()).isEqualTo(2);
-    assertThat(pq.poll()).isEqualTo(2);
-    assertThat(pq.poll()).isEqualTo(3);
-    assertThat(pq.poll()).isEqualTo(7);
-    assertThat(pq.poll()).isEqualTo(7);
-    assertThat(pq.poll()).isEqualTo(11);
-    assertThat(pq.poll()).isEqualTo(13);
+    assertEquals(2, pq.poll());
+    assertEquals(2, pq.poll());
+    assertEquals(2, pq.poll());
+    assertEquals(3, pq.poll());
+    assertEquals(7, pq.poll());
+    assertEquals(7, pq.poll());
+    assertEquals(11, pq.poll());
+    assertEquals(13, pq.poll());
   }
   /*
   @Test
@@ -215,18 +215,18 @@ public class MinDHeapTest {
 
       while( !pq1.isEmpty() ) {
 
-        assertThat(pq2.isMinHeap(0)).isTrue();
-        assertThat(pq1.size()).isEqualTo(pq2.size());
-        assertThat(pq1.peek()).isEqualTo(pq2.peek());
-        assertThat(pq1.contains(pq1.peek())).isEqualTo(pq2.contains(pq2.peek()));
+        assertTrue(pq2.isMinHeap(0));
+        assertEquals(pq1.size(), pq2.size());
+        assertEquals(pq1.peek(), pq2.peek());
+        assertEquals(pq1.contains(pq1.peek()), pq2.contains(pq2.peek()));
 
         Integer v1 = pq1.poll();
         Integer v2 = pq2.poll();
 
-        assertThat(v1).isEqualTo(v2);
-        assertThat(pq1.peek()).isEqualTo(pq2.peek());
-        assertThat(pq1.size()).isEqualTo(pq2.size());
-        assertThat(pq2.isMinHeap(0)).isTrue();
+        assertEquals(v1, v2);
+        assertEquals(pq1.peek(), pq2.peek());
+        assertEquals(pq1.size(), pq2.size());
+        assertTrue(pq2.isMinHeap(0));
 
       }
 
@@ -257,13 +257,13 @@ public class MinDHeapTest {
 
         int removeNum = randNums.get(index++);
 
-        assertThat(pq2.isMinHeap(0)).isTrue();
-        assertThat( pq1.size()).isEqualTo(pq2.size());
-        assertThat( pq1.peek()).isEqualTo(pq2.peek());
+        assertTrue(pq2.isMinHeap(0));
+        assertEquals(pq1.size(), pq2.size());
+        assertEquals(pq1.peek(), pq2.peek());
         pq1.remove(removeNum); pq2.remove(removeNum);
-        assertThat( pq1.peek()).isEqualTo(pq2.peek());
-        assertThat( pq1.size()).isEqualTo(pq2.size());
-        assertThat(pq2.isMinHeap(0)).isTrue();
+        assertEquals(pq1.peek(), pq2.peek());
+        assertEquals(pq1.size(), pq2.size());
+        assertTrue(pq2.isMinHeap(0));
 
       }
 
@@ -303,16 +303,16 @@ public class MinDHeapTest {
 
         int removeNum = nums.get(i);
 
-        assertThat(pq.isMinHeap(0)).isTrue();
-        assertThat( PQ.size()).isEqualTo(pq.size());
-        assertThat( PQ.peek().isEqualTo(pq.peek());
+        assertTrue(pq.isMinHeap(0));
+        assertEquals(PQ.size(), pq.size());
+        assertEquals(PQ.peek(), pq.peek());
 
         PQ.remove(removeNum);
         pq.remove(removeNum);
 
-        assertThat( PQ.peek().isEqualTo(pq.peek());
-        assertThat( PQ.size().isEqualTo(pq.size());
-        assertThat(pq.isMinHeap(0)).isTrue();
+        assertEquals(PQ.peek(), pq.peek());
+        assertEquals(PQ.size(), pq.size());
+        assertTrue(pq.isMinHeap(0));
 
       }
 

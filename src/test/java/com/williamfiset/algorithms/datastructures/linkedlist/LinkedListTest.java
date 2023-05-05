@@ -1,11 +1,12 @@
 package com.williamfiset.algorithms.datastructures.linkedlist;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import org.junit.*;
+
+import org.junit.jupiter.api.*;
 
 public class LinkedListTest {
   private static final int LOOPS = 10000;
@@ -15,131 +16,131 @@ public class LinkedListTest {
 
   DoublyLinkedList<Integer> list;
 
-  @Before
+  @BeforeEach
   public void setup() {
     list = new DoublyLinkedList<>();
   }
 
   @Test
   public void testEmptyList() {
-    assertThat(list.isEmpty()).isTrue();
-    assertThat(list.size()).isEqualTo(0);
+    assertTrue(list.isEmpty());
+    assertEquals(0, list.size());
   }
 
-  @Test(expected = Exception.class)
+  @Test
   public void testRemoveFirstOfEmpty() {
-    list.removeFirst();
+    assertThrows(Exception.class, () -> list.removeFirst());
   }
 
-  @Test(expected = Exception.class)
+  @Test
   public void testRemoveLastOfEmpty() {
-    list.removeLast();
+    assertThrows(Exception.class, () -> list.removeLast());
   }
 
-  @Test(expected = Exception.class)
+  @Test
   public void testPeekFirstOfEmpty() {
-    list.peekFirst();
+    assertThrows(Exception.class, () -> list.peekFirst());
   }
 
-  @Test(expected = Exception.class)
+  @Test
   public void testPeekLastOfEmpty() {
-    list.peekLast();
+    assertThrows(Exception.class, () -> list.peekLast());
   }
 
   @Test
   public void testAddFirst() {
     list.addFirst(3);
-    assertThat(list.size()).isEqualTo(1);
+    assertEquals(1, list.size());
     list.addFirst(5);
-    assertThat(list.size()).isEqualTo(2);
+    assertEquals(2, list.size());
   }
 
   @Test
   public void testAddLast() {
     list.addLast(3);
-    assertThat(list.size()).isEqualTo(1);
+    assertEquals(1, list.size());
     list.addLast(5);
-    assertThat(list.size()).isEqualTo(2);
+    assertEquals(2, list.size());
   }
 
   @Test
   public void testAddAt() throws Exception {
     list.addAt(0, 1);
-    assertThat(list.size()).isEqualTo(1);
+    assertEquals(1, list.size());
     list.addAt(1, 2);
-    assertThat(list.size()).isEqualTo(2);
+    assertEquals(2, list.size());
     list.addAt(1, 3);
-    assertThat(list.size()).isEqualTo(3);
+    assertEquals(3, list.size());
     list.addAt(2, 4);
-    assertThat(list.size()).isEqualTo(4);
+    assertEquals(4, list.size());
     list.addAt(1, 8);
-    assertThat(list.size()).isEqualTo(5);
+    assertEquals(5, list.size());
   }
 
   @Test
   public void testRemoveFirst() {
     list.addFirst(3);
-    assertThat(list.removeFirst()).isEqualTo(3);
-    assertThat(list.isEmpty());
+    assertEquals(3, list.removeFirst());
+    assertTrue(list.isEmpty());
   }
 
   @Test
   public void testRemoveLast() {
     list.addLast(4);
-    assertThat(list.removeLast()).isEqualTo(4);
-    assertThat(list.isEmpty()).isTrue();
+    assertEquals(4, list.removeLast());
+    assertTrue(list.isEmpty());
   }
 
   @Test
   public void testPeekFirst() {
     list.addFirst(4);
-    assertThat(list.peekFirst()).isEqualTo(4);
-    assertThat(list.size()).isEqualTo(1);
+    assertEquals(4, list.peekFirst());
+    assertEquals(1, list.size());
   }
 
   @Test
   public void testPeekLast() {
     list.addLast(4);
-    assertThat(list.peekLast()).isEqualTo(4);
-    assertThat(list.size()).isEqualTo(1);
+    assertEquals(4, list.peekLast());
+    assertEquals(1, list.size());
   }
 
   @Test
   public void testPeeking() {
     // 5
     list.addFirst(5);
-    assertThat(list.peekFirst()).isEqualTo(5);
-    assertThat(list.peekLast()).isEqualTo(5);
+    assertEquals(5, list.peekFirst());
+    assertEquals(5, list.peekLast());
 
     // 6 - 5
     list.addFirst(6);
-    assertThat(list.peekFirst()).isEqualTo(6);
-    assertThat(list.peekLast()).isEqualTo(5);
+    assertEquals(6, list.peekFirst());
+    assertEquals(5, list.peekLast());
 
     // 7 - 6 - 5
     list.addFirst(7);
-    assertThat(list.peekFirst()).isEqualTo(7);
-    assertThat(list.peekLast()).isEqualTo(5);
+    assertEquals(7, list.peekFirst());
+    assertEquals(5, list.peekLast());
 
     // 7 - 6 - 5 - 8
     list.addLast(8);
-    assertThat(list.peekFirst()).isEqualTo(7);
-    assertThat(list.peekLast()).isEqualTo(8);
+    assertEquals(7, list.peekFirst());
+    assertEquals(8, list.peekLast());
 
     // 7 - 6 - 5
     list.removeLast();
-    assertThat(list.peekFirst()).isEqualTo(7);
-    assertThat(list.peekLast()).isEqualTo(5);
+    assertEquals(7, list.peekFirst());
+    assertEquals(5, list.peekLast());
 
     // 7 - 6
     list.removeLast();
-    assertThat(list.peekFirst()).isEqualTo(7);
-    assertThat(list.peekLast()).isEqualTo(6);
+    assertEquals(7, list.peekFirst());
+    assertEquals(6, list.peekLast());
 
     // 6
     list.removeFirst();
-    assertThat(list.peekFirst()).isEqualTo(6);
-    assertThat(list.peekLast()).isEqualTo(6);
+    assertEquals(6, list.peekFirst());
+    assertEquals(6, list.peekLast());
   }
 
   @Test
@@ -157,7 +158,7 @@ public class LinkedListTest {
     strs.remove("e");
     strs.remove("c");
     strs.remove("f");
-    assertThat(strs.size()).isEqualTo(0);
+    assertEquals(0, strs.size());
   }
 
   @Test
@@ -168,11 +169,11 @@ public class LinkedListTest {
     list.add(4);
     list.removeAt(0);
     list.removeAt(2);
-    assertThat(list.peekFirst()).isEqualTo(2);
-    assertThat(list.peekLast()).isEqualTo(3);
+    assertEquals(2, list.peekFirst());
+    assertEquals(3, list.peekLast());
     list.removeAt(1);
     list.removeAt(0);
-    assertThat(list.size()).isEqualTo(0);
+    assertEquals(0, list.size());
   }
 
   @Test
@@ -180,15 +181,15 @@ public class LinkedListTest {
     list.add(22);
     list.add(33);
     list.add(44);
-    assertThat(list.size()).isEqualTo(3);
+    assertEquals(3, list.size());
     list.clear();
-    assertThat(list.size()).isEqualTo(0);
+    assertEquals(0, list.size());
     list.add(22);
     list.add(33);
     list.add(44);
-    assertThat(list.size()).isEqualTo(3);
+    assertEquals(3, list.size());
     list.clear();
-    assertThat(list.size()).isEqualTo(0);
+    assertEquals(0, list.size());
   }
 
   @Test
@@ -210,16 +211,10 @@ public class LinkedListTest {
       for (int i = 0; i < randNums.size(); i++) {
 
         Integer rm_val = randNums.get(i);
-        assertThat(javaLinkedList.remove(rm_val)).isEqualTo(list.remove(rm_val));
-        assertThat(javaLinkedList.size()).isEqualTo(list.size());
+        assertEquals(javaLinkedList.remove(rm_val), list.remove(rm_val));
+        assertEquals(javaLinkedList.size(), list.size());
 
-        java.util.Iterator<Integer> iter1 = javaLinkedList.iterator();
-        java.util.Iterator<Integer> iter2 = list.iterator();
-        while (iter1.hasNext()) assertThat(iter1.next()).isEqualTo(iter2.next());
-
-        iter1 = javaLinkedList.iterator();
-        iter2 = list.iterator();
-        while (iter1.hasNext()) assertThat(iter1.next()).isEqualTo(iter2.next());
+        assertIterableEquals(javaLinkedList, list);
       }
 
       list.clear();
@@ -234,12 +229,10 @@ public class LinkedListTest {
       for (int i = 0; i < randNums.size(); i++) {
 
         Integer rm_val = (int) (MAX_RAND_NUM * Math.random());
-        assertThat(javaLinkedList.remove(rm_val)).isEqualTo(list.remove(rm_val));
-        assertThat(javaLinkedList.size()).isEqualTo(list.size());
+        assertEquals(javaLinkedList.remove(rm_val), list.remove(rm_val));
+        assertEquals(javaLinkedList.size(), list.size());
 
-        java.util.Iterator<Integer> iter1 = javaLinkedList.iterator();
-        java.util.Iterator<Integer> iter2 = list.iterator();
-        while (iter1.hasNext()) assertThat(iter1.next()).isEqualTo(iter2.next());
+        assertIterableEquals(javaLinkedList, list);
       }
     }
   }
@@ -266,12 +259,10 @@ public class LinkedListTest {
 
         Integer num1 = javaLinkedList.remove(rm_index);
         Integer num2 = list.removeAt(rm_index);
-        assertThat(num1).isEqualTo(num2);
-        assertThat(javaLinkedList.size()).isEqualTo(list.size());
+        assertEquals(num1, num2);
+        assertEquals(javaLinkedList.size(), list.size());
 
-        java.util.Iterator<Integer> iter1 = javaLinkedList.iterator();
-        java.util.Iterator<Integer> iter2 = list.iterator();
-        while (iter1.hasNext()) assertThat(iter1.next()).isEqualTo(iter2.next());
+        assertIterableEquals(javaLinkedList, list);
       }
     }
   }
@@ -299,12 +290,10 @@ public class LinkedListTest {
         Integer index1 = javaLinkedList.indexOf(elem);
         Integer index2 = list.indexOf(elem);
 
-        assertThat(index1).isEqualTo(index2);
-        assertThat(javaLinkedList.size()).isEqualTo(list.size());
+        assertEquals(index1, index2);
+        assertEquals(javaLinkedList.size(), list.size());
 
-        java.util.Iterator<Integer> iter1 = javaLinkedList.iterator();
-        java.util.Iterator<Integer> iter2 = list.iterator();
-        while (iter1.hasNext()) assertThat(iter1.next()).isEqualTo(iter2.next());
+        assertIterableEquals(javaLinkedList, list);
       }
     }
   }
@@ -312,16 +301,16 @@ public class LinkedListTest {
   @Test
   public void testToString() {
     DoublyLinkedList<String> strs = new DoublyLinkedList<>();
-    assertThat(strs.toString()).isEqualTo("[  ]");
+    assertEquals("[  ]", strs.toString());
     strs.add("a");
-    assertThat(strs.toString()).isEqualTo("[ a ]");
+    assertEquals("[ a ]", strs.toString());
     strs.add("b");
-    assertThat(strs.toString()).isEqualTo("[ a, b ]");
+    assertEquals("[ a, b ]", strs.toString());
     strs.add("c");
     strs.add("d");
     strs.add("e");
     strs.add("f");
-    assertThat(strs.toString()).isEqualTo("[ a, b, c, d, e, f ]");
+    assertEquals("[ a, b, c, d, e, f ]", strs.toString());
   }
 
   // Generate a list of random numbers
